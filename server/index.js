@@ -18,7 +18,7 @@ dotenv.config();
 sgMail.setApiKey(process.env.SENDGRID_KEY);
 export const stripe = Stripe(process.env.STRIPE_PRIVATE_KEY);
 const corsOptions ={
-  origin:'https://online-grocery-store-sable.vercel.app/', 
+  origin:'*', 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
