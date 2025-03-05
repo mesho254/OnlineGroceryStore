@@ -11,12 +11,14 @@ import {
   updateQuantity
 } from "../controller/products/Products.js";
 import auth from "../middleware/auth.js";
+import upload from "../middleware/cloudinaryConfig.js";
 
 const router = express.Router();
 
 router.get("/", ShowProductsPerPage);
 router.get("/recommendations", ProductsRecommendations);
-router.post("/",  PostProducts);
+// router.post("/",  PostProducts);
+router.post("/", upload.single('image'), PostProducts);
 router.patch("/", auth, adminUpdateProducts);
 router.get("/search", productsSearch);
 router.post("/cart", validateCart);

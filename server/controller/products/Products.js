@@ -2,6 +2,17 @@ import Products from '../../model/Products.js';
 import jwt from 'jsonwebtoken';
 import Pagination from '../../utils/pagination.js';
 import CSVtoJSON from "../../utils/CSVtoJSON.js";
+import { v2 as cloudinary } from 'cloudinary';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+    api_key: process.env.CLOUDINARY_API_KEY,       
+    api_secret: process.env.CLOUDINARY_API_SECRET 
+});
 
 export const productsSearch = async (req, res) => {
     try {
@@ -71,21 +82,52 @@ const ShowProductsPerCategory = async (category, products) => {
     }
 }
 
+// export const PostProducts = async (req, res) => {
+//     // console.log(req.body)
+//     const product = req.body;
+//     const newProduct = new Products(product);
+
+
+//     try {
+//         await newProduct.save();
+//         res.status(201).send(newProduct);
+
+//     } catch (error) {
+//         res.status(409).json({message: error.message});
+//     }
+
+// }
+
 export const PostProducts = async (req, res) => {
-    console.log(req.body)
-    const product = req.body;
-    const newProduct = new Products(product);
-
-
     try {
+        const { name, price, weight, measurement, category, stock } = req.body;
+
+        // Check if an image file is provided
+        let imageUrl = null;
+        if (req.file) { // Assuming you're using a middleware like multer to handle file uploads
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'products', // Optional: Organize files in a specific folder
+            });
+            imageUrl = result.secure_url;
+        }
+
+        // Create a new product
+        const newProduct = new Products({
+            name,
+            price,
+            weight,
+            measurement,
+            category,
+            stock,
+            image: imageUrl || undefined, // Use uploaded image or default
+        });
+
         await newProduct.save();
         res.status(201).send(newProduct);
-
     } catch (error) {
-        res.status(409).json({message: error.message});
+        res.status(409).json({ message: error.message });
     }
-
-}
+};
 
 export const ProductsRecommendations = async (req, res) => {
     try {

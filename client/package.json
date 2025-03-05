@@ -12,6 +12,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "framer-motion": "^6.3.3",
     "npm": "^9.4.1",
+    "online-grocery-store": "file:",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.1",

@@ -52,6 +52,7 @@ app.use('*',(req,res) => {
 
 const PORT = process.env.PORT || 5000;
 
+mongoose.set('strictQuery', true); 
 const mongooseOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true

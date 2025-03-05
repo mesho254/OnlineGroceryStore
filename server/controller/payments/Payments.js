@@ -64,6 +64,7 @@ export const createCheckoutSession = async (req, res) => {
         res.status(201).json({url: session.url});
     } catch (error) {
         res.status(500).json({message: error.message});
+        console.log(error)
     }
 };
 
