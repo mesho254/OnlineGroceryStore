@@ -72,7 +72,9 @@ export const getAllOrders = async (req, res) => {
 
         // verify the user's role by calling the `User` service
         try {
-            await axios.post(`${USER_BASEURL}/role`, {id, role: 'ADMIN'})
+            await axios.post(`${USER_BASEURL}/role`, {id, role: 'ADMIN'},{
+                headers: { 'x-vercel-protection-bypass': process.env.VERCEL_PROTECTION_BYPASS_SECRET }
+            })
         } catch (e) {
             const {response} = e;
             return res.status(response.status).json(response.data);
