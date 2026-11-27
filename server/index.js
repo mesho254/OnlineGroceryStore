@@ -135,22 +135,36 @@ const mongooseOptions = {
 
 let dbConnectPromise = null;
 let backgroundJobsStarted = false;
+let lastDbError = null;
+
+const getCleanConnectionUrl = () =>
+    String(process.env.CONNECTION_URL || process.env.MONGODB_URI || "")
+        .trim()
+        .replace(/^CONNECTION_URL\s*=\s*/i, "")
+        .replace(/^["']+|["']+$/g, "")
+        .trim();
 
 export const connectToDatabase = async () => {
     if (mongoose.connection.readyState === 1) {
+        lastDbError = null;
         return mongoose.connection;
     }
     if (dbConnectPromise) {
         return dbConnectPromise;
     }
-    if (!process.env.CONNECTION_URL) {
-        console.error("CONNECTION_URL environment variable is not set!");
-        return null;
+
+    const mongoUri = getCleanConnectionUrl();
+    if (!mongoUri) {
+        const msg =
+            "CONNECTION_URL environment variable is missing on the server. Add CONNECTION_URL in your Vercel / Render Project Settings -> Environment Variables.";
+        lastDbError = msg;
+        throw new Error(msg);
     }
 
     dbConnectPromise = mongoose
-        .connect(process.env.CONNECTION_URL, mongooseOptions)
+        .connect(mongoUri, mongooseOptions)
         .then((conn) => {
+            lastDbError = null;
             console.log("Connected to MongoDB");
             // Only run heavy background scans & cron timers on persistent servers (Render / local), never inside Vercel serverless requests
             if (!backgroundJobsStarted && !process.env.VERCEL) {
@@ -163,6 +177,7 @@ export const connectToDatabase = async () => {
         })
         .catch((err) => {
             dbConnectPromise = null;
+            lastDbError = err.message;
             console.error("MongoDB connection error:", err.message);
             throw err;
         });
@@ -176,19 +191,38 @@ if (!process.env.VERCEL) {
 }
 
 // Health check & root endpoints
-app.get("/health", (req, res) => {
+app.get("/health", async (req, res) => {
+    if (mongoose.connection.readyState !== 1) {
+        try {
+            await connectToDatabase();
+        } catch {
+            // reported in payload below
+        }
+    }
     res.status(200).json({
-        status: "ok",
+        status: mongoose.connection.readyState === 1 ? "ok" : "db_unavailable",
         uptime: Math.round(process.uptime()),
         db_connected: mongoose.connection.readyState === 1,
+        has_connection_url: Boolean(getCleanConnectionUrl()),
+        db_error: lastDbError,
     });
 });
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+    if (mongoose.connection.readyState !== 1) {
+        try {
+            await connectToDatabase();
+        } catch {
+            // reported in payload below
+        }
+    }
     res.status(200).json({
         team_name: "Mesho Devs",
         dev_team: ["Mesho", "Mesho254"].sort(),
         status: "online",
+        db_connected: mongoose.connection.readyState === 1,
+        has_connection_url: Boolean(getCleanConnectionUrl()),
+        ...(lastDbError ? { db_error: lastDbError } : {}),
         swagger_docs: "/api-docs",
         health: "/health",
     });
