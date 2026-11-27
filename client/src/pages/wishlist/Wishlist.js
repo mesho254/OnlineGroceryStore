@@ -1,25 +1,43 @@
 import styles from './wishlist.module.css';
 import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {useQuery} from "@tanstack/react-query";
 import * as api from "../../api";
+import {UPDATE_WISHLIST} from "../../constants/actions/authentication";
 import Loading from "../../components/loading/Loading";
 import ProductCard from "../../components/product-card/ProductCard";
 import Error from "../../components/feedback/error/Error";
 
 const Wishlist = ({addProductToCart}) => {
     const [error, setError] = useState('');
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.authentication.user);
+    const userId = user?._id || user?.email || null;
 
-    const {data: products = [], isPending, error: queryError} = useQuery({
-        queryKey: ['wishlist'],
+    const {data: products = [], isPending, isSuccess, error: queryError} = useQuery({
+        queryKey: ['wishlist', userId],
         queryFn: async () => {
             const res = await api.getWishlist();
-            return res.data || [];
+            return Array.isArray(res.data) ? res.data : [];
         },
-        staleTime: 0,
-        refetchOnMount: 'always',
-        refetchOnWindowFocus: true
+        enabled: Boolean(userId),
+        staleTime: 60 * 1000,
     });
+
+    // Keep user.wishlist IDs in Redux & localStorage strictly synchronized with valid existing products
+    useEffect(() => {
+        if (!isSuccess || !user) return;
+        const validIds = products.map((p) => p?.product_id).filter(Boolean);
+        const currentIds = Array.isArray(user.wishlist) ? user.wishlist : [];
+        const isOutOfSync =
+            validIds.length !== currentIds.length ||
+            validIds.some((id, idx) => currentIds[idx] !== id);
+
+        if (isOutOfSync) {
+            dispatch({type: UPDATE_WISHLIST, data: validIds});
+        }
+    }, [isSuccess, products, user, dispatch]);
 
     useEffect(() => {
         if (queryError) {

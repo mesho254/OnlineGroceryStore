@@ -23,6 +23,7 @@ import {
     revokeRefreshToken,
     verifyRefreshTokenJwt,
 } from "../../utils/authTokens.js";
+import { sanitizeUserWishlistIds } from "./Wishlist.js";
 
 const formatAuthUser = (user) => ({
     _id: user._id,
@@ -65,6 +66,7 @@ export const login = async (req, res) => {
             });
         }
 
+        await sanitizeUserWishlistIds(user);
         const tokens = await issueAuthTokens(user);
 
         return res.status(200).json({
@@ -383,11 +385,13 @@ export const resetPassword = async (req, res) => {
 
 export const getProfile = async (req, res) => {
     try {
-        const userId = req.body.id;
+        const userId = req.userId || req.body?.id;
         const user = await Users.findById(userId, { password: 0 });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
+
+        await sanitizeUserWishlistIds(user);
 
         const orders = await Order.find({
             email: { $regex: `^${user.email}$`, $options: "i" },
