@@ -168,14 +168,16 @@ export const clearStoredSellerProfile = (options) =>
     clearSessionByKey(SELLER_PROFILE_STORAGE_KEY, 'seller-auth:session-expired', options);
 
 /**
- * Determines whether a request belongs to the standalone Seller Portal context
- * (either targeting `/seller/*` endpoints or initiated from the `/seller` portal tab).
+ * Determines whether a request belongs to the standalone Seller Portal tab (`/seller`).
+ * Using `window.location.pathname` ensures `/admin/sellers` on the `/admin` tab
+ * always uses the Admin's `profile` token rather than `seller_profile`.
  */
-export const isSellerPortalContext = (requestUrl = '') => {
-    const urlStr = String(requestUrl || '');
-    if (urlStr.includes('/seller')) return true;
-    if (typeof window !== 'undefined' && window.location?.pathname?.startsWith('/seller')) {
-        return true;
+export const isSellerPortalContext = () => {
+    if (typeof window !== 'undefined' && window.location?.pathname) {
+        return (
+            window.location.pathname === '/seller' ||
+            window.location.pathname.startsWith('/seller/')
+        );
     }
     return false;
 };
