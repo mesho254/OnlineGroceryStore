@@ -10,19 +10,31 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 20.18.0
+      - key: WEBSITE_BASE_URL
+        value: https://online-grocery-store-sable.vercel.app
+      - key: SERVICE
+        value: Gmail
+      - key: CLOUDINARY_CLOUD_NAME
+        value: dpfw1hjov
+      - key: VERCEL_PROTECTION_BYPASS_SECRET
+        value: x-vercel-protection-bypass
       - key: CONNECTION_URL
         sync: false
       - key: JWT_SECRET_KEY
         sync: false
+      - key: JWT_AUTH_TTL
+        sync: false
+      - key: JWT_CHECKOUT_TTL
+        sync: false
       - key: STRIPE_SECRET_KEY
         sync: false
-      - key: WEBSITE_BASE_URL
+      - key: STRIPE_PRIVATE_KEY
+        sync: false
+      - key: SENDGRID_KEY
         sync: false
       - key: USER
         sync: false
       - key: PASS
-        sync: false
-      - key: CLOUDINARY_CLOUD_NAME
         sync: false
       - key: CLOUDINARY_API_KEY
         sync: false
