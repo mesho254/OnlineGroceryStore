@@ -2,35 +2,254 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 2em;
+    gap: 1.35rem;
+}
+
+.header {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.title {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+}
+
+.login {
+    font-size: 0.88rem;
+    color: #64748b;
+}
+
+.login a {
+    font-size: inherit;
+    color: #059669;
+    font-weight: 700;
+}
+
+.login a:hover {
+    text-decoration: underline;
 }
 
 .form {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+
+.row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+    width: 100%;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    width: 100%;
+}
+
+.label-row {
+    display: flex;
     align-items: center;
-    gap: 1em;
+    justify-content: space-between;
 }
 
-.form input {
+.label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #334155;
+}
+
+.forgot-link {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #059669;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
     width: 100%;
 }
 
-.header {
+.lead-icon {
+    position: absolute;
+    left: 0.85rem;
+    color: #94a3b8;
+    font-size: 1.15rem;
+    pointer-events: none;
+}
+
+.input-box input {
     width: 100%;
+    padding: 0.72rem 2.65rem 0.72rem 2.6rem;
+    border-radius: 14px;
+    border: 1.5px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 0.9rem;
+    color: #0f172a;
+    transition: all 0.2s ease;
 }
 
-.title {
+.input-box input:focus {
+    background: #ffffff;
+    border-color: #10b981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+}
+
+.eye-btn {
+    position: absolute;
+    right: 0.65rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: transparent;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.eye-btn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.eye-btn span {
+    font-size: 1.15rem;
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 0.35rem;
+    padding: 0.82rem 1.5rem;
+    font-size: 0.95rem;
+}
+
+.submit-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* Password Strength & Checklist */
+.password-meter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 0.75rem 0.9rem;
+}
+
+.strength-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.strength-bars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.35rem;
+}
+
+.bar {
+    height: 5px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    transition: background-color 0.25s ease;
+}
+
+.bar-active-weak {
+    background: #ef4444;
+}
+
+.bar-active-fair {
+    background: #f59e0b;
+}
+
+.bar-active-good {
+    background: #3b82f6;
+}
+
+.bar-active-strong {
+    background: #10b981;
+}
+
+.rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3rem 0.6rem;
+    margin-top: 0.2rem;
+}
+
+.rule-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.73rem;
+    font-weight: 600;
+    color: #64748b;
+    line-height: 1.2;
+}
+
+.rule-item span:first-child {
+    font-size: 0.95rem;
+}
+
+.rule-pass {
+    color: #059669;
+}
+
+.match-hint {
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.15rem;
+}
+
+.match-ok {
+    color: #059669;
+}
+
+.match-err {
+    color: #e11d48;
+}
+
+.success-box {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+    padding: 0.9rem 1.1rem;
+    border-radius: 14px;
+    font-size: 0.88rem;
+    line-height: 1.4rem;
     font-weight: 500;
-    font-size: 1.1rem;
 }
 
-.login {
-    font-size: .8rem;
-}
-
-.login a {
-    font-size: inherit;
-    color: var(--PRIMARY);
-    font-weight: 500;
+@media screen and (max-width: 480px) {
+    .row-2,
+    .rules-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -1,23 +1,86 @@
 .wrapper {
-    height: 80vh;
+    min-height: calc(100vh - 120px);
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url("../../shared/assets/authentication/background.png");
-    background-size: min(130%, 50em);
-    background-repeat: no-repeat;
-    background-position: center;
+    padding: 2.5rem 1.25rem;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(5, 150, 105, 0.1) 0%, transparent 45%),
+        #f8fafc;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 490px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 28px;
+    box-shadow: 0 24px 48px -16px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+}
+
+.brand-bar {
+    padding: 1.5rem 2.25rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.logo-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #ecfdf5;
+    border: 1.5px solid #a7f3d0;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.brand-title {
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #064e3b;
+    line-height: 1.15;
+}
+
+.brand-sub {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #059669;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    width: min(80%, 30em);
-    padding: 2em 3em;
-    max-height: 80%;
-    overflow-y: auto;
-    border-radius: 5px;
-    box-shadow: 3px 3px 6px var(--NEUTRAL_2);
+    padding: 1.75rem 2.25rem 2.25rem;
+    width: 100%;
+}
+
+@media screen and (max-width: 540px) {
+    .brand-bar {
+        padding: 1.25rem 1.5rem 0;
+    }
+
+    .form {
+        padding: 1.5rem;
+    }
 }

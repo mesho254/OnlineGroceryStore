@@ -1,0 +1,145 @@
+.timeline-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 1.6rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    box-shadow: 0 12px 28px -14px rgba(15, 23, 42, 0.06);
+}
+
+.timeline-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.timeline-head h3 {
+    font-size: 1.12rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.timeline-head span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+}
+
+.step {
+    display: flex;
+    align-items: stretch;
+    gap: 1.1rem;
+}
+
+.rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 28px;
+    flex-shrink: 0;
+}
+
+.node {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.node-completed-blue {
+    background: #0ea5e9;
+}
+
+.node-active-blue {
+    background: #0284c7;
+}
+
+.node-green {
+    background: #15803d;
+}
+
+.node-grey {
+    background: #71717a;
+}
+
+.inner-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: block;
+}
+
+.connector {
+    width: 2.5px;
+    flex: 1;
+    min-height: 28px;
+    background: #0ea5e9;
+    margin: 4px 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding-bottom: 1.35rem;
+    flex: 1;
+}
+
+.step-last .content {
+    padding-bottom: 0.25rem;
+}
+
+.status-pill {
+    display: inline-block;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #ffffff;
+    padding: 0.24rem 0.65rem;
+    border-radius: 5px;
+    line-height: 1.25;
+}
+
+.pill-blue {
+    background: #0ea5e9;
+}
+
+.pill-green {
+    background: #15803d;
+}
+
+.pill-grey {
+    background: #71717a;
+}
+
+.date-text {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.detail-msg {
+    font-size: 0.92rem;
+    color: #475569;
+    line-height: 1.45rem;
+    margin-top: 0.15rem;
+    max-width: 680px;
+}

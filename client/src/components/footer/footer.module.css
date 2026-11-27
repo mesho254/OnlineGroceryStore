@@ -1,102 +1,159 @@
 .wrapper {
-    background: var(--NEUTRAL_9);
+    background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    color: #e2e8f0;
     display: flex;
     flex-direction: column;
+    border-top: 1px solid #1e293b;
+    margin-top: auto;
 }
 
 .top-wrapper {
+    width: 100%;
+    max-width: 1760px;
+    margin: 0 auto;
+    padding: 3.5rem clamp(1.25rem, 3.5vw, 3.5rem) 2.75rem;
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 3.5rem;
+}
+
+.brand-col {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+}
+
+.brand-lockup {
+    display: inline-flex;
     align-items: center;
-    padding: 2em 1em;
-    gap: 1em;
+    gap: 0.75rem;
 }
 
-.logo-wrapper {
-    --SIZE: 5em;
-    width: var(--SIZE);
-    height: var(--SIZE);
+.logo-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
 }
 
-.logo-wrapper img {
+.logo-badge img {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+    border-radius: 8px;
+}
+
+.brand-name {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+}
+
+.brand-tag {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #34d399;
+}
+
+.brand-desc {
+    font-size: 0.88rem;
+    line-height: 1.5rem;
+    color: #94a3b8;
+    max-width: 380px;
+}
+
+.trust-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.trust-badges span {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #a7f3d0;
+    background: rgba(16, 185, 129, 0.14);
+    border: 1px solid rgba(52, 211, 153, 0.25);
+    padding: 0.22rem 0.65rem;
+    border-radius: 999px;
 }
 
 .pages-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.pages {
     display: flex;
     flex-direction: column;
-    color: var(--NEUTRAL_1);
-    gap: 1em;
+    gap: 0.85rem;
 }
 
 .page-title {
-    font-weight: 500;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.02em;
 }
 
 .pages-list {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
 }
 
-.pages-list > * {
-    font-size: .8rem;
-    position: relative;
-    padding-left: 1em;
-    display: flex;
-    gap: .5em;
+.pages-list a {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    transition: all 0.18s ease;
 }
 
-.pages-list > *:before {
-    content: '>';
-    color: var(--RABBIT_YELLO);
-    transition: all .2s ease-out;
-}
-
-.pages-list > *:hover:before {
-    margin-right: .5em;
-}
-
-.pages-list p {
-    cursor: default;
+.pages-list a:hover {
+    color: #34d399;
+    transform: translateX(3px);
 }
 
 .credits {
-    font-size: .8rem;
-    text-align: center;
-    color: white;
-    padding: 1em;
-    border-top: 1px solid var(--NEUTRAL_7);
-    margin: 0 2em;
+    width: 100%;
+    max-width: 1760px;
+    margin: 0 auto;
+    padding: 1.25rem clamp(1.25rem, 3.5vw, 3.5rem);
+    border-top: 1px solid #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: #64748b;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 900px) {
     .top-wrapper {
-        flex-direction: row;
-        justify-content: center;
-        padding: 4em 5em;
-        gap: 3em;
-    }
-
-    .pages-wrapper {
-        flex-direction: row;
-        justify-content: center;
-        gap: 1.5em;
+        grid-template-columns: 1fr;
+        gap: 2.25rem;
     }
 }
 
-@media screen and (min-width: 1024px) {
-    .top-wrapper {
-        gap: 10em;
-    }
-
+@media screen and (max-width: 560px) {
     .pages-wrapper {
-        gap: 5em;
+        grid-template-columns: 1fr 1fr;
     }
-}
 
-@media screen and (min-width: 1440px) {
-    .top-wrapper{
-        max-width: 1200px;
-        margin: auto;
+    .credits {
+        flex-direction: column;
+        text-align: center;
     }
 }

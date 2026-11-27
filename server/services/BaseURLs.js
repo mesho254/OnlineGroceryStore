@@ -1,16 +1,14 @@
-// export const WEBSITE_BASE_URL = 'http://localhost:3000'
-// export const PRODUCTS_BASEURL = 'http://localhost:5000/products'
-// export const ORDERS_BASEURL = 'http://localhost:5000/orders'
-// export const SHIPPING_BASEURL = 'http://localhost:5000/shipping'
-// export const NOTIFICATIONS_BASEURL = 'http://localhost:5000/notifications'
-// export const PAYMENTS_BASEURL = 'http://localhost:5000/payments'
-// export const USER_BASEURL = 'http://localhost:5000/api/v1'
+import dotenv from "dotenv";
+dotenv.config();
 
+const BASE_URL = (
+    process.env.WEBSITE_BASE_URL || "https://online-grocery-store-sable.vercel.app"
+).replace(/\/+$/, "");
 
-export const WEBSITE_BASE_URL = 'https://online-grocery-store-sable.vercel.app'
-export const PRODUCTS_BASEURL = 'https://online-grocery-store-sable.vercel.app/products'
-export const ORDERS_BASEURL = 'https://online-grocery-store-sable.vercel.app/orders'
-export const SHIPPING_BASEURL = 'https://online-grocery-store-sable.vercel.app/shipping'
-export const NOTIFICATIONS_BASEURL = 'https://online-grocery-store-sable.vercel.app/notifications'
-export const PAYMENTS_BASEURL = 'https://online-grocery-store-sable.vercel.app/payments'
-export const USER_BASEURL = 'https://online-grocery-store-sable.vercel.app/api/v1'
+export const WEBSITE_BASE_URL = BASE_URL;
+export const PRODUCTS_BASEURL = `${BASE_URL}/products`;
+export const ORDERS_BASEURL = `${BASE_URL}/orders`;
+export const SHIPPING_BASEURL = `${BASE_URL}/shipping`;
+export const NOTIFICATIONS_BASEURL = `${BASE_URL}/notifications`;
+export const PAYMENTS_BASEURL = `${BASE_URL}/payments`;
+export const USER_BASEURL = `${BASE_URL}/api/v1`;

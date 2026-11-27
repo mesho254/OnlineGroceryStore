@@ -1,49 +1,58 @@
 import Users from "../../model/Users.js";
-import axios from "axios";
-import {PRODUCTS_BASEURL} from "../../services/BaseURLs.js";
+import Products from "../../model/Products.js";
 
 export const getWishlist = async (req, res) => {
-    const {id} = req.body;
+    const { id } = req.body;
 
     try {
-        // get user's wishlist array
-        const {wishlist} = await Users.findById(id);
+        const user = await Users.findById(id);
+        const wishlist = user?.wishlist || [];
+        const data = await Products.find({ product_id: { $in: wishlist } });
 
-        // request the products in the wishlist from the `Products` service
-        // const {data} = await axios.post(`${PRODUCTS_BASEURL}/arr`, {arr: wishlist});
-
-        const {data} = await axios.post(`${PRODUCTS_BASEURL}/arr`, {arr: wishlist}, {
-        headers: { 'x-vercel-protection-bypass': process.env.VERCEL_PROTECTION_BYPASS_SECRET }
-        });
-
-        // respond with all products
         res.status(200).json(data);
     } catch (e) {
-        res.status(400).json({message: e.message});
+        res.status(400).json({ message: e.message });
     }
-}
+};
 
 export const updateWishlist = async (req, res) => {
-    const {id, product_id} = req.body;
+    const { id, product_id } = req.body;
     try {
         const user = await Users.findById(id);
 
-        // if the user doesn't have a wishlist defined yet set it to an empty array
         const wishlist = user.wishlist || [];
 
-        // if the wishlist contains the item, remove it
         let newWishlist;
         if (wishlist.includes(product_id))
             newWishlist = wishlist.filter((item) => item !== product_id);
-        else // else add it to the wishlist
+        else
             newWishlist = [...wishlist, product_id];
 
-        // update the database with the new wishlist
-        await Users.findByIdAndUpdate(id, {wishlist: newWishlist});
+        await Users.findByIdAndUpdate(id, { wishlist: newWishlist });
 
-        // respond with the new wishlist
-        res.status(201).json({wishlist: newWishlist});
+        res.status(201).json({ wishlist: newWishlist });
     } catch (error) {
-        res.status(409).json({message: error.message});
+        res.status(409).json({ message: error.message });
     }
-}
+};
+
+export const getUserCart = async (req, res) => {
+    const { id } = req.body;
+    try {
+        const user = await Users.findById(id);
+        return res.status(200).json({ cart: user?.cart || [] });
+    } catch (e) {
+        return res.status(400).json({ message: e.message });
+    }
+};
+
+export const syncUserCart = async (req, res) => {
+    const { id, cart } = req.body;
+    try {
+        const safeCart = Array.isArray(cart) ? cart : [];
+        await Users.findByIdAndUpdate(id, { cart: safeCart });
+        return res.status(200).json({ cart: safeCart });
+    } catch (e) {
+        return res.status(400).json({ message: e.message });
+    }
+};

@@ -1,5 +1,6 @@
 import * as api from '../api';
 import {FETCH_RECOMMENDATIONS, UPDATE_DATABASE, VALIDATE_CART, VALIDATE_CART_ERR} from "../constants/actions/products";
+import {queryClient} from "../index";
 
 export const getProductsPerPage = (page, category, onSuccess) => async () => {
     try {
@@ -25,13 +26,17 @@ export const getRecommendations = (onSuccess) => async (dispatch) => {
         dispatch({type: FETCH_RECOMMENDATIONS, data})
         onSuccess(data);
     } catch (e) {
-        console.log(e)
+        console.log(e);
+        dispatch({type: FETCH_RECOMMENDATIONS, data: []});
+        if (onSuccess) onSuccess([]);
     }
 }
 
 export const postProduct = (product, onSuccess, onError) => async () => {
     try {
         const data = await api.postProduct(product).then(res => res.data);
+        queryClient.invalidateQueries({queryKey: ['products']});
+        queryClient.invalidateQueries({queryKey: ['recommendations']});
         onSuccess(data);
     } catch (e) {
         const {data} = e.response;
@@ -55,6 +60,8 @@ export const adminUpdateDatabase = (csv, mode, onSuccess, onError) => async (dis
     try {
         const updatedData = await api.adminUpdateDatabase(csv, mode).then(res => res.data);
         dispatch({type: UPDATE_DATABASE, data: updatedData});
+        queryClient.invalidateQueries({queryKey: ['products']});
+        queryClient.invalidateQueries({queryKey: ['recommendations']});
         onSuccess(updatedData);
     } catch (e) {
         onError(e);

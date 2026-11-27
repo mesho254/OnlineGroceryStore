@@ -1,8 +1,17 @@
 import express from "express";
-import {orderConfirmation} from "../controller/notifications/Notifications.js";
+import auth from "../middleware/auth.js";
+import {
+    orderConfirmation,
+    getUserNotifications,
+    markNotificationRead,
+    markAllNotificationsRead,
+} from "../controller/notifications/Notifications.js";
 
 const router = express.Router();
 
-router.post('/order-confirmation', orderConfirmation);
+router.get("/", auth, getUserNotifications);
+router.patch("/read-all", auth, markAllNotificationsRead);
+router.patch("/:id/read", auth, markNotificationRead);
+router.post("/order-confirmation", orderConfirmation);
 
 export default router;

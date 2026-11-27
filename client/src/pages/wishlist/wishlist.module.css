@@ -1,40 +1,99 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    padding: 4em 1em;
-    gap: 4em;
-    min-height: 70vh;
+    width: 100%;
+    max-width: 1760px;
+    margin: 0 auto;
+    padding: 2.5rem clamp(1.25rem, 3.5vw, 3.5rem) 4rem;
+    gap: 2rem;
+    min-height: 72vh;
+}
+
+.page-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.eyebrow {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #059669;
+}
+
+.page-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-top: 0.1rem;
+}
+
+.explore-link {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #059669;
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+    background: #ecfdf5;
+    transition: all 0.2s ease;
+}
+
+.explore-link:hover {
+    background: #d1fae5;
 }
 
 .no-products {
+    max-width: 520px;
+    width: 100%;
+    margin: 1.5rem auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 28px;
+    padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1em;
-    align-self: center;
     text-align: center;
+    gap: 0.9rem;
+    box-shadow: 0 20px 40px -16px rgba(15, 23, 42, 0.07);
+}
+
+.heart-badge {
+    width: 68px;
+    height: 68px;
+    border-radius: 20px;
+    background: #fff1f2;
+    border: 1.5px solid #fecdd3;
+    color: #e11d48;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heart-badge span {
+    font-size: 2.2rem;
+    font-variation-settings: 'FILL' 1;
+}
+
+.no-products h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.no-products p {
+    font-size: 0.92rem;
+    color: #64748b;
+    line-height: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .products-wrapper {
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    align-items: center;
-    gap: 1.5em;
-}
-
-@media screen and (min-width: 760px) {
-    .products-wrapper {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .products-wrapper{
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    .wrapper{
-        max-width: 1024px;
-        margin: auto;
-    }
+    grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+    gap: 1.35rem;
 }

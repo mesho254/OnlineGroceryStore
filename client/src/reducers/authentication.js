@@ -1,29 +1,67 @@
-import {LOGIN, LOGOUT, UPDATE_WISHLIST,SIGNUP} from "../constants/actions/authentication";
+import {
+    LOGIN,
+    LOGOUT,
+    REFRESH_TOKENS,
+    SIGNUP,
+    UPDATE_PROFILE,
+    UPDATE_WISHLIST,
+} from "../constants/actions/authentication";
+import {
+    clearStoredProfile,
+    readStoredProfile,
+    writeStoredProfile,
+} from "../utils/authSession";
 
-let profile = JSON.parse(localStorage.getItem('profile'));
+const profile = readStoredProfile();
 
 const initialState = {
-    user: profile?.user,
-    token: profile?.token
-}
+    user: profile?.user || null,
+    token: profile?.token || null,
+    accessToken: profile?.accessToken || profile?.token || null,
+    refreshToken: profile?.refreshToken || null,
+    accessTokenExpiresAt: profile?.accessTokenExpiresAt || null,
+    refreshTokenExpiresAt: profile?.refreshTokenExpiresAt || null,
+};
+
+const toAuthState = (session) => ({
+    user: session?.user || null,
+    token: session?.token || null,
+    accessToken: session?.accessToken || session?.token || null,
+    refreshToken: session?.refreshToken || null,
+    accessTokenExpiresAt: session?.accessTokenExpiresAt || null,
+    refreshTokenExpiresAt: session?.refreshTokenExpiresAt || null,
+});
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case LOGIN:
-            localStorage.setItem('profile', JSON.stringify(action.data));
-            return {...state, user: action.data?.user, token: action.data?.token};
         case SIGNUP:
-            localStorage.setItem('profile',JSON.stringify(action.data));
-            return {...state, user: action.data?.user, token :action.data?.token};
+        case REFRESH_TOKENS: {
+            const saved = writeStoredProfile(action.data, { notify: false });
+            if (!saved) return state;
+            return {
+                ...state,
+                ...toAuthState(saved),
+            };
+        }
         case LOGOUT:
-            localStorage.removeItem('profile');
-            return {};
-        case UPDATE_WISHLIST:
-            const user = {...state.user, wishlist: action.data};
-            return {...state, user}
+            clearStoredProfile({ notify: false, reason: 'logout' });
+            return toAuthState(null);
+        case UPDATE_WISHLIST: {
+            if (!state.user) return state;
+            const user = { ...state.user, wishlist: action.data };
+            const saved = writeStoredProfile({ user }, { notify: false });
+            return saved ? { ...state, ...toAuthState(saved) } : { ...state, user };
+        }
+        case UPDATE_PROFILE: {
+            if (!state.user && !action.data) return state;
+            const user = { ...(state.user || {}), ...(action.data || {}) };
+            const saved = writeStoredProfile({ user }, { notify: false });
+            return saved ? { ...state, ...toAuthState(saved) } : { ...state, user };
+        }
         default:
             return state;
     }
-}
+};
 
 export default reducer;

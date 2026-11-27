@@ -1,0 +1,298 @@
+.wrapper {
+    width: 100%;
+    max-width: 1680px;
+    margin: 0 auto;
+    padding: 2.25rem clamp(1.25rem, 3.5vw, 3.5rem) 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.top-bar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.eyebrow {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #059669;
+}
+
+.top-bar h1 {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.top-bar p {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.back-link {
+    background: #ecfdf5;
+    color: #059669;
+    font-size: 0.86rem;
+    font-weight: 700;
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+}
+
+.ok-banner {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #047857;
+    padding: 0.75rem 1.1rem;
+    border-radius: 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.err-banner {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #e11d48;
+    padding: 0.75rem 1.1rem;
+    border-radius: 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 1.75rem;
+    align-items: start;
+}
+
+.form-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 1.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+    box-shadow: 0 12px 28px -12px rgba(15, 23, 42, 0.06);
+}
+
+.form-card h2,
+.stations-col h2 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.map-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 0.85rem;
+}
+
+.gps-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+    padding: 0.55rem 0.9rem;
+    border-radius: 12px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.gps-btn:hover {
+    background: #d1fae5;
+}
+
+.search-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.search-row input {
+    flex: 1;
+    font-size: 0.84rem;
+}
+
+.search-row button {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 0 1rem;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.field label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #334155;
+}
+
+.row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.map-preview {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.btn-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.cancel-btn {
+    background: #f1f5f9;
+    color: #475569;
+    padding: 0.65rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.stations-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.station-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 1.2rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    box-shadow: 0 4px 14px -6px rgba(15, 23, 42, 0.05);
+}
+
+.station-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.city-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #059669;
+    background: #ecfdf5;
+    padding: 0.12rem 0.55rem;
+    border-radius: 999px;
+    margin-bottom: 0.2rem;
+}
+
+.station-head h3 {
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.coord-chip {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+}
+
+.station-addr {
+    font-size: 0.86rem;
+    color: #334155;
+}
+
+.station-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.station-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed #e2e8f0;
+    margin-top: 0.2rem;
+}
+
+.edit-btn {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.map-link {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #059669;
+}
+
+.map-link:hover {
+    text-decoration: underline;
+}
+
+.del-btn {
+    margin-left: auto;
+    background: #fff1f2;
+    color: #e11d48;
+    border: 1px solid #fecdd3;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 920px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}

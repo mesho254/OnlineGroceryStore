@@ -3,3 +3,7 @@
 .env.local
 .env.staging
 node_modules/
+build/
+dist/
+client/build/
+client/dist/

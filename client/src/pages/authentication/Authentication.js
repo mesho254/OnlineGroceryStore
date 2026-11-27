@@ -1,25 +1,28 @@
 import styles from './authentication.module.css';
-import {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import Logo from '../../shared/assets/logos.jpg';
+import {Link} from "react-router-dom";
 
 const Authentication = ({data}) => {
-
-    const navigate = useNavigate();
-    const user = useSelector(state => state.authentication.user);
-
-    useEffect(() => {
-        if (user)
-            return navigate('/');
-    }, [user, navigate])
-
     return (
         <div className={styles['wrapper']}>
-            <div className={styles['form']}>
-                {data}
+            <div className={styles['auth-card']}>
+                <div className={styles['brand-bar']}>
+                    <Link to="/" className={styles['brand-link']}>
+                        <div className={styles['logo-box']}>
+                            <img src={Logo} alt="FreshMart"/>
+                        </div>
+                        <div>
+                            <span className={styles['brand-title']}>FreshMart</span>
+                            <span className={styles['brand-sub']}>20-Min Express Grocery</span>
+                        </div>
+                    </Link>
+                </div>
+                <div className={styles['form']}>
+                    {data}
+                </div>
             </div>
         </div>
     );
-}
+};
 
 export default Authentication;

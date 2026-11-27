@@ -1,0 +1,154 @@
+.icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.14s ease, background-color 0.14s ease, border-color 0.14s ease,
+        box-shadow 0.14s ease;
+}
+
+.icon-btn span {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.icon-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.icon-btn:focus-visible {
+    outline: 2px solid #059669;
+    outline-offset: 2px;
+}
+
+.icon-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.tone-blue {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-color: #bfdbfe;
+}
+
+.tone-blue:hover:not(:disabled) {
+    background: #dbeafe;
+    border-color: #93c5fd;
+}
+
+.tone-emerald {
+    background: #059669;
+    color: #ffffff;
+    border-color: #059669;
+    box-shadow: 0 4px 10px -4px rgba(5, 150, 105, 0.55);
+}
+
+.tone-emerald:hover:not(:disabled) {
+    background: #047857;
+    border-color: #047857;
+}
+
+.tone-emerald-soft {
+    background: #ecfdf5;
+    color: #047857;
+    border-color: #a7f3d0;
+}
+
+.tone-emerald-soft:hover:not(:disabled) {
+    background: #d1fae5;
+    border-color: #6ee7b7;
+}
+
+.tone-amber {
+    background: #fffbeb;
+    color: #b45309;
+    border-color: #fde68a;
+}
+
+.tone-amber:hover:not(:disabled) {
+    background: #fef3c7;
+    border-color: #fcd34d;
+}
+
+.tone-neutral {
+    background: #f1f5f9;
+    color: #334155;
+    border-color: #e2e8f0;
+}
+
+.tone-neutral:hover:not(:disabled) {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.tone-danger {
+    background: #fff1f2;
+    color: #dc2626;
+    border-color: #fecdd3;
+}
+
+.tone-danger:hover:not(:disabled) {
+    background: #ffe4e6;
+    border-color: #fda4af;
+}
+
+/* Fixed Portal Tooltip */
+.tooltip {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    background: #0f172a;
+    color: #f8fafc;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 6px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
+    animation: tipFade 0.12s ease-out;
+}
+
+.tooltip-above {
+    transform: translate(-50%, -100%);
+}
+
+.tooltip-above::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #0f172a;
+}
+
+.tooltip-below {
+    transform: translate(-50%, 0);
+}
+
+.tooltip-below::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-bottom-color: #0f172a;
+}
+
+@keyframes tipFade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

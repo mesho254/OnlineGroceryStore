@@ -3,14 +3,24 @@ import {Link} from "react-router-dom";
 
 const Error401 = () => {
     const user = !!localStorage.getItem('profile');
-    const message =
+    const message = user ? (
         <>
-            {
-                user? <>This may have occurred because you don't have permission to view requested page. <Link to={"/"}>Go to Home</Link></>:
-                    <>This may have occurred because you are not logged in. Try <Link to={'/login'}>Logging in</Link></>
-            }
+            Your account does not have administrator permissions to view this page.
         </>
-    return <Main code={401} message={message}/>
-}
+    ) : (
+        <>
+            You need to be signed in to view this page. Please <Link to={'/login'}>Sign In</Link> to continue.
+        </>
+    );
+
+    return (
+        <Main
+            code={401}
+            icon="lock"
+            title="Access Restricted"
+            message={message}
+        />
+    );
+};
 
 export default Error401;

@@ -1,0 +1,350 @@
+.shell {
+    width: 100%;
+    max-width: 1760px;
+    margin: 0 auto;
+    padding: 1.75rem clamp(1rem, 2.5vw, 2.5rem) 4rem;
+    display: grid;
+    grid-template-columns: 265px minmax(0, 1fr);
+    gap: 1.75rem;
+    align-items: start;
+    min-height: 82vh;
+}
+
+/* Sticky Left Sidebar */
+.sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 96px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    box-shadow: 0 14px 34px -16px rgba(15, 23, 42, 0.07);
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 0.5rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 8px 16px -6px rgba(5, 150, 105, 0.45);
+}
+
+.brand-icon span {
+    font-size: 1.4rem;
+}
+
+.sidebar-brand strong {
+    display: block;
+    font-size: 0.96rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.sidebar-brand small {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-top: 0.1rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+}
+
+.nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.group-label {
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+    padding: 0 0.65rem;
+    text-transform: uppercase;
+}
+
+.group-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 13px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #475569;
+    transition: all 0.18s ease;
+}
+
+.nav-link span:first-child {
+    font-size: 1.2rem;
+    color: #64748b;
+    transition: color 0.18s ease;
+}
+
+.nav-link:hover {
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.nav-link:hover span:first-child {
+    color: #059669;
+}
+
+.nav-link-active {
+    background: #ecfdf5 !important;
+    color: #047857 !important;
+    border: 1px solid #a7f3d0;
+}
+
+.nav-link-active span:first-child {
+    color: #059669 !important;
+}
+
+.nav-label {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav-badge,
+.mobile-badge {
+    min-width: 21px;
+    height: 21px;
+    padding: 0 6px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.mobile-badge {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 0.66rem;
+    margin-left: 2px;
+}
+
+.badge-danger {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.badge-amber {
+    background: #f59e0b;
+    color: #ffffff;
+}
+
+.badge-blue {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+.badge-neutral {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.mobile-badge-on-active {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+.sidebar-footer {
+    padding-top: 0.85rem;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.seller-portal-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    width: 100%;
+    padding: 0.62rem 0.9rem;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    box-shadow: 0 8px 16px -6px rgba(5, 150, 105, 0.4);
+}
+
+.seller-portal-btn:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    transform: translateY(-1px);
+}
+
+.seller-portal-btn span:first-child {
+    font-size: 1.1rem;
+}
+
+.storefront-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border-radius: 13px;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.storefront-btn:hover {
+    background: #1e293b;
+    transform: translateY(-1px);
+}
+
+.storefront-btn span:first-child {
+    font-size: 1.1rem;
+}
+
+/* Main Content Area */
+.workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.mobile-tabs {
+    display: none;
+    overflow-x: auto;
+    gap: 0.5rem;
+    padding-bottom: 0.35rem;
+}
+
+.mobile-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #475569;
+    white-space: nowrap;
+}
+
+.mobile-tab span:first-child {
+    font-size: 1.05rem;
+}
+
+.mobile-tab-active {
+    background: #059669;
+    border-color: #059669;
+    color: #ffffff;
+}
+
+.page-header {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 1.4rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    box-shadow: 0 10px 26px -14px rgba(15, 23, 42, 0.05);
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.eyebrow {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    color: #059669;
+    text-transform: uppercase;
+}
+
+.header-left h1 {
+    font-size: clamp(1.4rem, 2vw, 1.75rem);
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.header-left p {
+    font-size: 0.86rem;
+    color: #64748b;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+@media screen and (max-width: 1080px) {
+    .shell {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .mobile-tabs {
+        display: flex;
+    }
+}

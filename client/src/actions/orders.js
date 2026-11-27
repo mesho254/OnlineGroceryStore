@@ -1,5 +1,6 @@
 import * as api from '../api/index';
 import {ORDERS_FETCH, ORDERS_FETCH_ALL} from "../constants/actions/orders";
+import {queryClient} from "../index";
 
 export const fetchOrder = (id, onSuccess, onError) => async (dispatch) => {
     try {
@@ -7,16 +8,24 @@ export const fetchOrder = (id, onSuccess, onError) => async (dispatch) => {
         dispatch({type: ORDERS_FETCH, data: orderData})
         onSuccess(orderData);
     } catch (e) {
-        onError(e.response.data);
+        onError(e.response?.data || {message: e.message});
     }
 }
 
 export const updateOrder = (id, status, onSuccess, onError) => async () => {
     try {
-        await api.updateOrder(id, status);
-        onSuccess();
+        const res = await api.updateOrder(id, status);
+        queryClient.invalidateQueries({queryKey: ['order']});
+        queryClient.invalidateQueries({queryKey: ['shipment']});
+        queryClient.invalidateQueries({queryKey: ['myShipments']});
+        queryClient.invalidateQueries({queryKey: ['adminOrders']});
+        queryClient.invalidateQueries({queryKey: ['adminOrdersQuickList']});
+        queryClient.invalidateQueries({queryKey: ['adminShipments']});
+        queryClient.invalidateQueries({queryKey: ['adminShipmentsQuickList']});
+        queryClient.invalidateQueries({queryKey: ['adminOverview']});
+        onSuccess(res.data);
     } catch (e) {
-        onError(e.response.data);
+        onError(e.response?.data || {message: e.message});
     }
 }
 

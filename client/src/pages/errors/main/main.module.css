@@ -1,26 +1,93 @@
 .wrapper {
-    min-height: 80vh;
+    min-height: 75vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.25rem;
+}
+
+.card {
+    max-width: 560px;
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 28px;
+    padding: 3rem 2.25rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: 1rem;
+    box-shadow: 0 24px 48px -16px rgba(15, 23, 42, 0.08);
+}
+
+.icon-badge {
+    width: 68px;
+    height: 68px;
+    border-radius: 20px;
+    background: #ecfdf5;
+    border: 1.5px solid #a7f3d0;
+    color: #059669;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 1em;
-    padding: 2em;
-    max-width: 800px;
-    margin: auto;
+}
+
+.icon-badge span {
+    font-size: 2.25rem;
 }
 
 .code {
-    font-size: 8rem;
-    line-height: 8rem;
-    font-weight: 500;
-    color: var(--PRIMARY);
+    font-size: 4.5rem;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.message {
+    font-size: 0.96rem;
+    line-height: 1.6rem;
+    color: #64748b;
+    max-width: 420px;
 }
 
 .message a {
-    transition: .2s all ease-in-out;
+    color: #059669;
+    font-weight: 700;
+    text-decoration: underline;
 }
 
-.message a:hover {
-    color: var(--PRIMARY);
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 0.75rem;
+}
+
+.back-btn {
+    padding: 0.65em 1.2em;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
 }
