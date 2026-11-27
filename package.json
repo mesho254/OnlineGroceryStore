@@ -1,0 +1,18 @@
+{
+  "name": "online-grocery-store",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "install:server": "npm --prefix server install",
+    "install:client": "npm --prefix client install",
+    "build": "npm --prefix server install && npm --prefix server run build",
+    "build:client": "npm --prefix client install && npm --prefix client run build",
+    "start": "node server/index.js",
+    "dev": "npm --prefix server run dev",
+    "seed": "npm --prefix server run seed",
+    "doctor": "node scripts/check-codebase.mjs"
+  }
+}

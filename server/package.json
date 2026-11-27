@@ -1,14 +1,17 @@
 {
   "name": "online-grocery-store-server",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "main": "index.js",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon index.js",
+    "build": "node scripts/postinstall-fix.mjs",
+    "postinstall": "node scripts/postinstall-fix.mjs",
     "seed": "node seed.js"
   },
   "dependencies": {
@@ -40,5 +43,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "FreshMart Online Grocery Store Backend API (Render & Vercel Ready)"
 }
