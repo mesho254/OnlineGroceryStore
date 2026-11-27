@@ -1,7 +1,6 @@
 import styles from './sellerPortal.module.css';
 import {useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {useQuery} from "@tanstack/react-query";
 import {
     ResponsiveContainer,
@@ -17,9 +16,11 @@ import {
 } from "recharts";
 import * as api from "../../api";
 import {queryClient} from "../../index";
-import {LOGIN, UPDATE_PROFILE} from "../../constants/actions/authentication";
-import {readStoredProfile, writeStoredProfile} from "../../utils/authSession";
-import {logout} from "../../actions/auth";
+import {
+    clearStoredSellerProfile,
+    readStoredSellerProfile,
+    writeStoredSellerProfile,
+} from "../../utils/authSession";
 import Loading from "../../components/loading/Loading";
 import TablePagination from "../../components/table-pagination/TablePagination";
 import SellerProductWizard from "./SellerProductWizard";
@@ -88,8 +89,30 @@ const resizeAvatarFileToDataUrl = (file, size = 320, quality = 0.86) =>
 const SellerPortal = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const reduxUser = useSelector((state) => state.authentication.user);
+    const [sellerSession, setSellerSession] = useState(() => readStoredSellerProfile());
+    const sellerUser = sellerSession?.user || null;
+
+    useEffect(() => {
+        const handleUpdated = (e) => {
+            setSellerSession(e?.detail || readStoredSellerProfile());
+        };
+        const handleExpired = () => {
+            setSellerSession(null);
+        };
+        const handleStorage = (e) => {
+            if (e.key === 'seller_profile') {
+                setSellerSession(readStoredSellerProfile());
+            }
+        };
+        window.addEventListener('seller-auth:session-updated', handleUpdated);
+        window.addEventListener('seller-auth:session-expired', handleExpired);
+        window.addEventListener('storage', handleStorage);
+        return () => {
+            window.removeEventListener('seller-auth:session-updated', handleUpdated);
+            window.removeEventListener('seller-auth:session-expired', handleExpired);
+            window.removeEventListener('storage', handleStorage);
+        };
+    }, []);
 
     const searchParams = new URLSearchParams(location.search);
     const activeTab = searchParams.get('tab') || 'overview';
@@ -164,18 +187,18 @@ const SellerPortal = () => {
     });
     const [savingPassword, setSavingPassword] = useState(false);
 
-    const hasToken = Boolean(readStoredProfile()?.token);
+    const hasToken = Boolean(sellerSession?.token);
 
     const {
         data: statusData,
         isPending: loadingStatus,
         refetch: refetchStatus,
     } = useQuery({
-        queryKey: ['sellerStatus', reduxUser?._id || 'anon'],
+        queryKey: ['sellerStatus', sellerUser?._id || 'anon'],
         queryFn: async () => {
             const res = await api.fetchSellerStatus();
             if (res.data?.user) {
-                dispatch({type: UPDATE_PROFILE, data: res.data.user});
+                writeStoredSellerProfile({user: res.data.user}, {notify: true});
             }
             return res.data;
         },
@@ -185,7 +208,7 @@ const SellerPortal = () => {
         refetchOnWindowFocus: true,
     });
 
-    const currentUser = statusData?.user || reduxUser || null;
+    const currentUser = statusData?.user || sellerUser || null;
     const sellerProfile = statusData?.seller_profile || currentUser?.seller_profile || {status: 'NONE'};
     const sellerStatus = sellerProfile?.status || 'NONE';
     const isApproved = sellerStatus === 'APPROVED';
@@ -321,7 +344,8 @@ const SellerPortal = () => {
         try {
             const res = await api.authLogin(loginEmail.trim(), loginPassword);
             const {user} = res.data;
-            dispatch({type: LOGIN, data: res.data});
+            const saved = writeStoredSellerProfile(res.data, {notify: true});
+            setSellerSession(saved);
             queryClient.invalidateQueries({queryKey: ['sellerStatus']});
             showSuccess(`✓ Signed in as ${user.first_name || user.email}`);
         } catch (err) {
@@ -337,7 +361,8 @@ const SellerPortal = () => {
         setError('');
         try {
             const res = await api.registerSeller(regForm);
-            dispatch({type: LOGIN, data: res.data});
+            const saved = writeStoredSellerProfile(res.data, {notify: true});
+            setSellerSession(saved);
             queryClient.invalidateQueries({queryKey: ['sellerStatus']});
             showSuccess(res.data?.message || '✓ Seller registration submitted for admin approval!');
         } catch (err) {
@@ -360,7 +385,7 @@ const SellerPortal = () => {
                 business_description: regForm.business_description,
             });
             if (res.data?.user) {
-                dispatch({type: UPDATE_PROFILE, data: res.data.user});
+                writeStoredSellerProfile({user: res.data.user}, {notify: true});
             }
             refetchStatus();
             showSuccess(res.data?.message || '✓ Seller application sent to Admin for approval!');
@@ -372,16 +397,26 @@ const SellerPortal = () => {
     };
 
     const handleSignOut = () => {
-        dispatch(logout);
-        queryClient.clear();
+        const current = readStoredSellerProfile();
+        clearStoredSellerProfile({notify: true, reason: 'logout'});
+        setSellerSession(null);
+        if (current?.refreshToken) {
+            api.authLogout(current.refreshToken).catch(() => {});
+        }
+        queryClient.removeQueries({queryKey: ['sellerStatus']});
+        queryClient.removeQueries({queryKey: ['sellerOverview']});
+        queryClient.removeQueries({queryKey: ['sellerProducts']});
+        queryClient.removeQueries({queryKey: ['sellerOrders']});
+        queryClient.removeQueries({queryKey: ['sellerReviews']});
+        queryClient.removeQueries({queryKey: ['sellerNotifications']});
         setLoginEmail('');
         setLoginPassword('');
     };
 
     const syncLocalUser = (updatedUser) => {
         if (!updatedUser) return;
-        dispatch({type: UPDATE_PROFILE, data: updatedUser});
-        writeStoredProfile({user: updatedUser}, {notify: false});
+        const saved = writeStoredSellerProfile({user: updatedUser}, {notify: true});
+        setSellerSession(saved);
     };
 
     const handleAvatarUpload = async (e) => {
@@ -462,7 +497,10 @@ const SellerPortal = () => {
         setSavingPassword(true);
         setError('');
         try {
-            await api.changeUserPassword(pwForm.currentPassword, pwForm.newPassword);
+            await api.changeUserPassword({
+                current_password: pwForm.currentPassword,
+                new_password: pwForm.newPassword,
+            });
             setPwForm({currentPassword: '', newPassword: '', confirmPassword: ''});
             showSuccess('✓ Password changed successfully!');
         } catch (err) {

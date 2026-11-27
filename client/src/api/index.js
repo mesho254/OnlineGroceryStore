@@ -12,10 +12,14 @@ import {
 import {getTrackerSessionId} from "../utils/tracker";
 import {
     clearStoredProfile,
+    clearStoredSellerProfile,
     isAccessTokenExpired,
     isRefreshTokenExpired,
+    isSellerPortalContext,
     readStoredProfile,
+    readStoredSellerProfile,
     writeStoredProfile,
+    writeStoredSellerProfile,
 } from "../utils/authSession";
 
 const API = axios.create();
@@ -32,26 +36,34 @@ const AUTH_BYPASS_PATHS = [
 const isAuthBypassUrl = (url = '') =>
     AUTH_BYPASS_PATHS.some((segment) => String(url).includes(segment));
 
-// Single-flight refresh promise so concurrent expired requests share one /refresh-token call
-let inFlightRefreshPromise = null;
+// Single-flight refresh promises (separate for Customer Storefront vs isolated Seller Portal)
+let inFlightCustomerRefreshPromise = null;
+let inFlightSellerRefreshPromise = null;
 
-export const refreshAuthSession = async () => {
-    if (inFlightRefreshPromise) {
-        return inFlightRefreshPromise;
+export const refreshAuthSession = async (useSellerSession = false) => {
+    const readFn = useSellerSession ? readStoredSellerProfile : readStoredProfile;
+    const writeFn = useSellerSession ? writeStoredSellerProfile : writeStoredProfile;
+    const clearFn = useSellerSession ? clearStoredSellerProfile : clearStoredProfile;
+
+    if (useSellerSession && inFlightSellerRefreshPromise) {
+        return inFlightSellerRefreshPromise;
+    }
+    if (!useSellerSession && inFlightCustomerRefreshPromise) {
+        return inFlightCustomerRefreshPromise;
     }
 
-    const current = readStoredProfile();
+    const current = readFn();
     const refreshToken = current?.refreshToken;
 
     if (!refreshToken || isRefreshTokenExpired(current, 1000)) {
-        clearStoredProfile({notify: true, reason: 'refresh_token_expired'});
+        clearFn({notify: true, reason: 'refresh_token_expired'});
         throw new Error('Refresh token expired');
     }
 
-    inFlightRefreshPromise = axios
+    const promise = axios
         .post(`${USER_BASEURL}/refresh-token`, {refreshToken})
         .then((res) => {
-            const updated = writeStoredProfile(res.data, {notify: true});
+            const updated = writeFn(res.data, {notify: true});
             if (!updated?.accessToken) {
                 throw new Error('Invalid refresh response');
             }
@@ -60,19 +72,31 @@ export const refreshAuthSession = async () => {
         .catch((err) => {
             const status = err?.response?.status;
             if (status === 401 || status === 403) {
-                clearStoredProfile({notify: true, reason: 'refresh_rejected'});
+                clearFn({notify: true, reason: 'refresh_rejected'});
             }
             throw err;
         })
         .finally(() => {
-            inFlightRefreshPromise = null;
+            if (useSellerSession) {
+                inFlightSellerRefreshPromise = null;
+            } else {
+                inFlightCustomerRefreshPromise = null;
+            }
         });
 
-    return inFlightRefreshPromise;
+    if (useSellerSession) {
+        inFlightSellerRefreshPromise = promise;
+    } else {
+        inFlightCustomerRefreshPromise = promise;
+    }
+
+    return promise;
 };
 
 API.interceptors.request.use(async (req) => {
-    let profile = readStoredProfile();
+    const useSeller = isSellerPortalContext(req.url);
+    const readFn = useSeller ? readStoredSellerProfile : readStoredProfile;
+    let profile = readFn();
 
     // Proactively rotate access token if it is expired or expiring within 20 seconds
     if (
@@ -83,9 +107,9 @@ API.interceptors.request.use(async (req) => {
         !isRefreshTokenExpired(profile, 2000)
     ) {
         try {
-            profile = await refreshAuthSession();
+            profile = await refreshAuthSession(useSeller);
         } catch {
-            profile = readStoredProfile();
+            profile = readFn();
         }
     }
 
@@ -104,9 +128,11 @@ API.interceptors.request.use(async (req) => {
 
 API.interceptors.response.use(
     (response) => {
-        // If an endpoint (such as password change) returns newly rotated tokens, persist them
+        // If an endpoint (such as password change) returns newly rotated tokens, persist them to the active session
         if (response?.data?.accessToken && response?.data?.refreshToken && !isAuthBypassUrl(response?.config?.url)) {
-            writeStoredProfile(response.data, {notify: true});
+            const useSeller = isSellerPortalContext(response?.config?.url);
+            const writeFn = useSeller ? writeStoredSellerProfile : writeStoredProfile;
+            writeFn(response.data, {notify: true});
         }
         return response;
     },
@@ -115,6 +141,9 @@ API.interceptors.response.use(
         const status = error?.response?.status;
         const errorCode = error?.response?.data?.code;
         const url = String(originalRequest?.url || '');
+        const useSeller = isSellerPortalContext(url);
+        const readFn = useSeller ? readStoredSellerProfile : readStoredProfile;
+        const clearFn = useSeller ? clearStoredSellerProfile : clearStoredProfile;
 
         if (status !== 401 || !originalRequest || originalRequest._retry || isAuthBypassUrl(url)) {
             return Promise.reject(error);
@@ -130,11 +159,11 @@ API.interceptors.response.use(
             return Promise.reject(error);
         }
 
-        const current = readStoredProfile();
+        const current = readFn();
         if (current?.refreshToken && !isRefreshTokenExpired(current, 1000)) {
             originalRequest._retry = true;
             try {
-                const refreshed = await refreshAuthSession();
+                const refreshed = await refreshAuthSession(useSeller);
                 originalRequest.headers = originalRequest.headers || {};
                 originalRequest.headers.Authorization = `Bearer ${refreshed.accessToken}`;
                 return API(originalRequest);
@@ -144,7 +173,7 @@ API.interceptors.response.use(
         }
 
         if (errorCode === 'TOKEN_EXPIRED' || errorCode === 'TOKEN_INVALID' || current) {
-            clearStoredProfile({notify: true, reason: 'access_token_expired'});
+            clearFn({notify: true, reason: 'access_token_expired'});
         }
 
         return Promise.reject(error);

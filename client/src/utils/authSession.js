@@ -1,4 +1,5 @@
 const PROFILE_STORAGE_KEY = 'profile';
+const SELLER_PROFILE_STORAGE_KEY = 'seller_profile';
 
 /**
  * Safely decodes a JWT payload and returns its `exp` claim in milliseconds (or null).
@@ -93,28 +94,28 @@ export const isSessionCompletelyExpired = (profile) => {
     return false;
 };
 
-export const readStoredProfile = () => {
+const readSessionByKey = (storageKey) => {
     try {
-        const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+        const raw = localStorage.getItem(storageKey);
         if (!raw) return null;
         const parsed = JSON.parse(raw);
         const normalized = normalizeAuthSession(parsed);
         if (!normalized || !normalized.user || isSessionCompletelyExpired(normalized)) {
-            localStorage.removeItem(PROFILE_STORAGE_KEY);
+            localStorage.removeItem(storageKey);
             return null;
         }
         return normalized;
     } catch {
-        localStorage.removeItem(PROFILE_STORAGE_KEY);
+        localStorage.removeItem(storageKey);
         return null;
     }
 };
 
-export const writeStoredProfile = (data, { notify = true } = {}) => {
+const writeSessionByKey = (storageKey, eventName, data, { notify = true } = {}) => {
     try {
         const current = (() => {
             try {
-                const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+                const raw = localStorage.getItem(storageKey);
                 return raw ? JSON.parse(raw) : null;
             } catch {
                 return null;
@@ -122,11 +123,9 @@ export const writeStoredProfile = (data, { notify = true } = {}) => {
         })();
         const normalized = normalizeAuthSession(data, current);
         if (!normalized || !normalized.token) return null;
-        localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(normalized));
+        localStorage.setItem(storageKey, JSON.stringify(normalized));
         if (notify && typeof window !== 'undefined') {
-            window.dispatchEvent(
-                new CustomEvent('auth:session-updated', { detail: normalized })
-            );
+            window.dispatchEvent(new CustomEvent(eventName, { detail: normalized }));
         }
         return normalized;
     } catch {
@@ -134,15 +133,49 @@ export const writeStoredProfile = (data, { notify = true } = {}) => {
     }
 };
 
-export const clearStoredProfile = ({ notify = true, reason = 'expired' } = {}) => {
+const clearSessionByKey = (storageKey, eventName, { notify = true, reason = 'expired' } = {}) => {
     try {
-        localStorage.removeItem(PROFILE_STORAGE_KEY);
+        localStorage.removeItem(storageKey);
     } catch {
         // ignore storage errors
     }
     if (notify && typeof window !== 'undefined') {
-        window.dispatchEvent(
-            new CustomEvent('auth:session-expired', { detail: { reason } })
-        );
+        window.dispatchEvent(new CustomEvent(eventName, { detail: { reason } }));
     }
+};
+
+// Customer & Admin Storefront Session ('profile')
+export const readStoredProfile = () => readSessionByKey(PROFILE_STORAGE_KEY);
+
+export const writeStoredProfile = (data, options) =>
+    writeSessionByKey(PROFILE_STORAGE_KEY, 'auth:session-updated', data, options);
+
+export const clearStoredProfile = (options) =>
+    clearSessionByKey(PROFILE_STORAGE_KEY, 'auth:session-expired', options);
+
+// Isolated Seller Portal Session ('seller_profile')
+export const readStoredSellerProfile = () => readSessionByKey(SELLER_PROFILE_STORAGE_KEY);
+
+export const writeStoredSellerProfile = (data, options) =>
+    writeSessionByKey(
+        SELLER_PROFILE_STORAGE_KEY,
+        'seller-auth:session-updated',
+        data,
+        options
+    );
+
+export const clearStoredSellerProfile = (options) =>
+    clearSessionByKey(SELLER_PROFILE_STORAGE_KEY, 'seller-auth:session-expired', options);
+
+/**
+ * Determines whether a request belongs to the standalone Seller Portal context
+ * (either targeting `/seller/*` endpoints or initiated from the `/seller` portal tab).
+ */
+export const isSellerPortalContext = (requestUrl = '') => {
+    const urlStr = String(requestUrl || '');
+    if (urlStr.includes('/seller')) return true;
+    if (typeof window !== 'undefined' && window.location?.pathname?.startsWith('/seller')) {
+        return true;
+    }
+    return false;
 };
