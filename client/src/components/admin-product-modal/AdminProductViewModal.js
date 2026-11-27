@@ -66,7 +66,7 @@ const AdminProductViewModal = ({
     const stock = Number(product.stock || 0);
 
     const seller = product.seller || {
-        name: "FreshMart Verified Farm Partner",
+        name: "KijaniMart Verified Farm Partner",
         location: "Nairobi, Kenya",
         verified: true,
         rating: 4.9,
@@ -303,7 +303,7 @@ const AdminProductViewModal = ({
                                 </div>
                                 <div className={styles["seller-details"]}>
                                     <div className={styles["seller-name-row"]}>
-                                        <strong>{seller.name || "FreshMart Store"}</strong>
+                                        <strong>{seller.name || "KijaniMart Store"}</strong>
                                         {seller.verified !== false && (
                                             <span className={styles["verified-chip"]}>
                                                 ✓ Verified

@@ -72,12 +72,12 @@ const TESTIMONIALS = [
 
 const FAQ_ITEMS = [
     {
-        q: 'How fast is FreshMart express doorstep delivery?',
+        q: 'How fast is KijaniMart express doorstep delivery?',
         a: 'Orders placed within our active Nairobi coverage zones are handpicked, packed, and dispatched within minutes—arriving at your doorstep in under 20 minutes on average, with live step-by-step shipment tracking.',
     },
     {
         q: 'Can I collect my order from a Pickup Station instead?',
-        a: 'Yes! At checkout you can choose any convenient FreshMart Pickup Station across Nairobi for FREE collection. We notify you by email and in-app alert the moment your order is ready for pickup.',
+        a: 'Yes! At checkout you can choose any convenient KijaniMart Pickup Station across Nairobi for FREE collection. We notify you by email and in-app alert the moment your order is ready for pickup.',
     },
     {
         q: 'Do I get an official receipt for my grocery orders?',
@@ -88,12 +88,12 @@ const FAQ_ITEMS = [
         a: 'All produce is harvested daily by verified farm partners and checked before dispatch. Every product page displays harvest dates, shelf life, storage tips, and verified buyer ratings.',
     },
     {
-        q: 'How can local farms or grocery vendors sell on FreshMart?',
+        q: 'How can local farms or grocery vendors sell on KijaniMart?',
         a: 'Open the Seller Portal, register your store details, and once an administrator approves your store you can list products, monitor earnings & ratings, and manage incoming orders from your dedicated seller dashboard.',
     },
     {
         q: 'What happens if an item goes out of stock while I am checking out?',
-        a: 'FreshMart uses real-time inventory checks and checkout holds to prevent overselling. If the last unit is claimed simultaneously, your checkout is protected and any duplicate payment is automatically refunded.',
+        a: 'KijaniMart uses real-time inventory checks and checkout holds to prevent overselling. If the last unit is claimed simultaneously, your checkout is protected and any duplicate payment is automatically refunded.',
     },
 ];
 
@@ -346,10 +346,10 @@ const Home = ({addProductToCart}) => {
 
                     <div className={`${styles['promo-card']} ${styles['promo-dark']}`}>
                         <div className={styles['promo-content']}>
-                            <span className={styles['promo-eyebrow-gold']}>🏪 FRESHMART SELLER MARKETPLACE</span>
+                            <span className={styles['promo-eyebrow-gold']}>🏪 KIJANIMART SELLER MARKETPLACE</span>
                             <h3>Grow Your Farm or Grocery Business Online</h3>
                             <p>
-                                Join verified local producers on FreshMart. List products, monitor live earnings, track customer ratings, and fulfill orders in our Seller Portal.
+                                Join verified local producers on KijaniMart. List products, monitor live earnings, track customer ratings, and fulfill orders in our Seller Portal.
                             </p>
                             <a
                                 href="/seller"
@@ -437,7 +437,7 @@ const Home = ({addProductToCart}) => {
                 )}
             </section>
 
-            {/* 7. HOW FRESHMART WORKS (4-STEP EXPRESS JOURNEY) */}
+            {/* 7. HOW KIJANIMART WORKS (4-STEP EXPRESS JOURNEY) */}
             <section className={styles['section-container']}>
                 <div className={styles['how-band']}>
                     <div className={styles['center-header']}>
@@ -472,7 +472,7 @@ const Home = ({addProductToCart}) => {
                         <span className={styles['section-eyebrow']}>FLEXIBLE FULFILLMENT</span>
                         <h2 className={styles['section-title']}>Doorstep Delivery &amp; Free Pickup Hubs</h2>
                         <p className={styles['section-sub']}>
-                            Choose 20-minute express doorstep dispatch or collect free at any FreshMart Pickup Station across Nairobi.
+                            Choose 20-minute express doorstep dispatch or collect free at any KijaniMart Pickup Station across Nairobi.
                         </p>
                     </div>
                     <Link to={'/shipping'} className={styles['view-all-link']}>
@@ -514,7 +514,7 @@ const Home = ({addProductToCart}) => {
                             : [
                                   {
                                       station_id: 'hub-1',
-                                      name: 'Westlands FreshMart Hub',
+                                      name: 'Westlands KijaniMart Hub',
                                       area: 'Westlands',
                                       city: 'Nairobi',
                                       landmark: 'Near Sarit Centre Main Gate',
@@ -616,7 +616,7 @@ const Home = ({addProductToCart}) => {
                 </div>
             </section>
 
-            {/* 10. WHY CHOOSE FRESHMART */}
+            {/* 10. WHY CHOOSE KIJANIMART */}
             <section className={styles['why-section']}>
                 <div className={styles['why']}>
                     <div className={styles['why-component']}>
@@ -662,7 +662,7 @@ const Home = ({addProductToCart}) => {
                         <span className={styles['section-eyebrow']}>GOT QUESTIONS?</span>
                         <h2 className={styles['section-title']}>Frequently Asked Questions</h2>
                         <p className={styles['center-sub']}>
-                            Everything you need to know about FreshMart express delivery, Pickup Stations, POS receipts, and selling with us.
+                            Everything you need to know about KijaniMart express delivery, Pickup Stations, POS receipts, and selling with us.
                         </p>
                     </div>
 

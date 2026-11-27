@@ -44,7 +44,7 @@ const OrderId = () => {
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `FreshMart-Receipt-${id}.pdf`;
+            link.download = `KijaniMart-Receipt-${id}.pdf`;
             document.body.appendChild(link);
             link.click();
             link.remove();
@@ -308,7 +308,7 @@ const OrderId = () => {
                                 {isPickup
                                     ? order.address?.pickup_station?.name ||
                                       order.address?.street ||
-                                      'FreshMart Pickup Station'
+                                      'KijaniMart Pickup Station'
                                     : [
                                           order.address?.street,
                                           order.address?.area,

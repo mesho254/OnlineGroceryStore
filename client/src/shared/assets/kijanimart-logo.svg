@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="km_bg" x1="4" y1="4" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#047857"/>
+      <stop offset="55%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="km_leaf" x1="28" y1="9" x2="46" y2="26" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <linearGradient id="km_bolt" x1="38" y1="24" x2="52" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded Emerald App Squircle -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#km_bg)"/>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="14.5" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+
+  <!-- Organic Highland Leaf Sprouting from Basket -->
+  <path d="M32 25C32 15.5 39.5 10 47.5 10C47.5 18 42 25 32 25Z" fill="url(#km_leaf)"/>
+  <path d="M31.5 25C31.5 18.5 26 14 19.5 14C19.5 20.5 25 25 31.5 25Z" fill="#6ee7b7" fill-opacity="0.88"/>
+  <path d="M32 25C35.5 20 40.5 15.5 45.5 12" stroke="#064e3b" stroke-width="1.6" stroke-linecap="round" stroke-opacity="0.45"/>
+
+  <!-- Basket Arch Handle -->
+  <path d="M22 28L27 19.5M42 28L37 19.5" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/>
+
+  <!-- Shopping Basket Rim -->
+  <rect x="13" y="26.5" width="38" height="5.5" rx="2.75" fill="#ffffff"/>
+
+  <!-- Shopping Basket Body -->
+  <path d="M16 32H48L44.2 49.2C43.7 51.4 41.8 53 39.5 53H24.5C22.2 53 20.3 51.4 19.8 49.2L16 32Z" fill="#ffffff"/>
+
+  <!-- Emerald Basket Slats -->
+  <path d="M25.5 36.5L27 47.5M32 36.5V47.5M38.5 36.5L37 47.5" stroke="#059669" stroke-width="2.6" stroke-linecap="round"/>
+
+  <!-- 20-Min Express Lightning Bolt Badge -->
+  <circle cx="46.5" cy="45.5" r="10.5" fill="#064e3b"/>
+  <circle cx="46.5" cy="45.5" r="9.2" fill="#0f172a"/>
+  <path d="M47.8 38.2L41.8 46.2H46.3L45.1 52.8L51.3 44.6H46.8L47.8 38.2Z" fill="url(#km_bolt)"/>
+</svg>

@@ -2,12 +2,12 @@ import { baseEmailLayout } from "./baseEmailLayout.js";
 
 export const welcomeEmailTemplate = ({ name = "Customer", shopUrl = "" }) =>
   baseEmailLayout({
-    title: "Welcome to FreshMart!",
+    title: "Welcome to KijaniMart!",
     preheader: "Farm-fresh groceries delivered to your doorstep in 20 minutes.",
     contentHtml: `
-      <h2 style="margin:0 0 12px;font-size:20px;font-weight:700;color:#0f172a;">Welcome to FreshMart, ${name}! 🥬</h2>
+      <h2 style="margin:0 0 12px;font-size:20px;font-weight:700;color:#0f172a;">Welcome to KijaniMart, ${name}! 🥬</h2>
       <p style="margin:0 0 16px;font-size:15px;line-height:24px;color:#475569;">
-        Thank you for creating your FreshMart account. You now have access to 50+ farm-fresh groceries, organic vegetables, prime meats, dairy, and daily essentials delivered in under 20 minutes.
+        Thank you for creating your KijaniMart account. You now have access to 50+ farm-fresh groceries, organic vegetables, prime meats, dairy, and daily essentials delivered in under 20 minutes.
       </p>
       ${
         shopUrl

@@ -57,7 +57,7 @@ const toDateInputValue = (val) => {
 };
 
 const buildInitialProduct = (editingProduct, sellerProfile) => {
-    const storeName = sellerProfile?.store_name || 'FreshMart Farm Partner';
+    const storeName = sellerProfile?.store_name || 'KijaniMart Farm Partner';
     const storeLocation = sellerProfile?.business_location || 'Nairobi, Kenya';
 
     if (editingProduct) {
@@ -492,7 +492,7 @@ const SellerProductWizard = ({editingProduct = null, sellerProfile, onSaved, onC
                                     name="brand"
                                     value={product.brand}
                                     onChange={handleChange}
-                                    placeholder="FreshMart Organics"
+                                    placeholder="KijaniMart Organics"
                                 />
                             </div>
                             <div className={styles['field']}>
@@ -951,7 +951,7 @@ const SellerProductWizard = ({editingProduct = null, sellerProfile, onSaved, onC
                                         <strong>Admin Review Before Publishing:</strong> Your
                                         product will be listed as <b>Pending Publishing</b> while an
                                         Admin reviews it. Once approved, it automatically goes live
-                                        on the FreshMart storefront.
+                                        on the KijaniMart storefront.
                                     </>
                                 )}
                             </span>

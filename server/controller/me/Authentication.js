@@ -259,7 +259,7 @@ export const signup = async (req, res) => {
         const baseUrl = req.headers.origin || process.env.WEBSITE_BASE_URL || WEBSITE_BASE_URL;
         sendEmail({
             to: newUser.email,
-            subject: "Welcome to FreshMart Online Grocery Store!",
+            subject: "Welcome to KijaniMart Online Grocery Store!",
             html: welcomeEmailTemplate({
                 name: newUser.first_name || "Customer",
                 shopUrl: `${baseUrl}/products`,
@@ -313,7 +313,7 @@ export const forgotPassword = async (req, res) => {
 
         await sendEmail({
             to: user.email,
-            subject: "Reset Your FreshMart Account Password",
+            subject: "Reset Your KijaniMart Account Password",
             html: passwordResetTemplate({
                 name: user.first_name || "Customer",
                 resetUrl,
@@ -365,7 +365,7 @@ export const resetPassword = async (req, res) => {
         const baseUrl = req.headers.origin || process.env.WEBSITE_BASE_URL || "http://localhost:3000";
         sendEmail({
             to: user.email,
-            subject: "Your FreshMart Password Was Changed",
+            subject: "Your KijaniMart Password Was Changed",
             html: passwordResetSuccessTemplate({
                 name: user.first_name || "Customer",
                 loginUrl: `${baseUrl.replace(/\/+$/, "")}/login`,

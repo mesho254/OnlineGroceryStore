@@ -689,7 +689,7 @@ export const updateAdminProductApproval = async (req, res) => {
                             : `Product Moved to Pending Review: ${product.name}`,
                     message:
                         approval_status === "APPROVED"
-                            ? `Great news! Your product "${product.name}" was approved by Admin and is now live on the FreshMart storefront.`
+                            ? `Great news! Your product "${product.name}" was approved by Admin and is now live on the KijaniMart storefront.`
                             : approval_status === "REJECTED"
                             ? `Your product "${product.name}" was not approved for publishing${
                                   product.rejection_reason
@@ -840,7 +840,7 @@ export const reviewAdminProductPendingChanges = async (req, res) => {
                             : `Product Edits Not Approved: ${prevName}`,
                     message:
                         action === "APPROVE"
-                            ? `Admin approved your submitted updates for "${product.name}". The new details are now live on the FreshMart storefront.`
+                            ? `Admin approved your submitted updates for "${product.name}". The new details are now live on the KijaniMart storefront.`
                             : `Admin did not approve your proposed edits for "${prevName}"${
                                   rejection_reason ? `: ${rejection_reason}` : "."
                               } Your product remains live with its previous details.`,
@@ -975,7 +975,7 @@ export const updateAdminProductFull = async (req, res) => {
         if (description !== undefined) product.description = String(description).trim();
         if (category !== undefined && String(category).trim())
             product.category = String(category).trim();
-        if (brand !== undefined) product.brand = String(brand).trim() || "FreshMart Organics";
+        if (brand !== undefined) product.brand = String(brand).trim() || "KijaniMart Organics";
         if (sku !== undefined) product.sku = String(sku).trim();
         if (origin !== undefined) product.origin = String(origin).trim() || "Kenyan Highlands";
         if (is_organic !== undefined)
@@ -1041,7 +1041,7 @@ export const updateAdminProductFull = async (req, res) => {
                     : product.seller || {};
                 product.seller = {
                     ...existingSeller,
-                    name: String(parsedSeller.name || existingSeller.name || "FreshMart Farm Partner").trim(),
+                    name: String(parsedSeller.name || existingSeller.name || "KijaniMart Farm Partner").trim(),
                     location: String(parsedSeller.location || existingSeller.location || "Nairobi, Kenya").trim(),
                     verified:
                         parsedSeller.verified !== undefined

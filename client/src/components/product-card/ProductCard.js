@@ -220,7 +220,7 @@ const ProductCard = ({
                 <div className={styles['seller-rating-row']}>
                     <span className={styles['rating-chip']}>★ {product.rating || 4.8}</span>
                     <span className={styles['seller-text']}>
-                        {product.seller?.name || product.brand || "FreshMart Farm"}
+                        {product.seller?.name || product.brand || "KijaniMart Farm"}
                     </span>
                 </div>
 

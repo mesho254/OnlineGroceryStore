@@ -78,7 +78,7 @@ export const lowStockAlertEmailTemplate = ({
         ${totalFlagged} ${headlineNoun} ${headlineVerb} Restocking
       </h2>
       <p style="margin:0 0 18px 0;font-size:14px;color:#475569;line-height:21px;">
-        Hi <strong>${adminName}</strong>, here is your latest FreshMart inventory summary:
+        Hi <strong>${adminName}</strong>, here is your latest KijaniMart inventory summary:
         <strong>${outOfStockProducts.length} sold-out</strong> and
         <strong>${lowStockProducts.length} low-stock (&le; ${threshold} units)</strong>
         ${totalFlagged === 1 ? "item requires" : "items require"} restocking.
@@ -110,7 +110,7 @@ export const lowStockAlertEmailTemplate = ({
     `;
 
     return baseEmailLayout({
-        title: `FreshMart Stock Alert (${totalFlagged} ${totalFlagged === 1 ? "item" : "items"})`,
+        title: `KijaniMart Stock Alert (${totalFlagged} ${totalFlagged === 1 ? "item" : "items"})`,
         preheader: `${outOfStockProducts.length} sold out and ${lowStockProducts.length} low stock products need restocking.`,
         contentHtml,
     });

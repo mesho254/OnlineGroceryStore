@@ -266,7 +266,7 @@ const Shipment = () => {
                             const firstProductId = products[0]?.product_id;
 
                             const destinationText = isPickup
-                                ? `${item.address?.pickup_station?.name || item.address?.street || 'FreshMart Pickup Station'} (${item.address?.area || ''}, ${item.address?.city || 'Nairobi'})`
+                                ? `${item.address?.pickup_station?.name || item.address?.street || 'KijaniMart Pickup Station'} (${item.address?.area || ''}, ${item.address?.city || 'Nairobi'})`
                                 : [item.address?.street, item.address?.area, item.address?.city]
                                       .filter(Boolean)
                                       .join(', ') || 'Doorstep Delivery';

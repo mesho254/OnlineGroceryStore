@@ -107,7 +107,7 @@ const AdminPickupStations = () => {
                 const parts = (top.display_name || "").split(",").map((s) => s.trim());
                 setForm((prev) => ({
                     ...prev,
-                    name: prev.name || `FreshMart ${parts[0]} Station`,
+                    name: prev.name || `KijaniMart ${parts[0]} Station`,
                     area: prev.area || parts[0] || "",
                     street: prev.street || parts.slice(0, 2).join(", ") || "",
                     lat,
@@ -242,7 +242,7 @@ const AdminPickupStations = () => {
                             name="name"
                             value={form.name}
                             onChange={handleChange}
-                            placeholder="e.g. FreshMart Westlands Hub"
+                            placeholder="e.g. KijaniMart Westlands Hub"
                             required
                         />
                     </div>

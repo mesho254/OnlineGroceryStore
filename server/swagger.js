@@ -777,7 +777,7 @@ const swaggerSpec = {
                 type: "object",
                 required: ["name", "area", "street"],
                 properties: {
-                  name: { type: "string", example: "FreshMart Westlands Hub" },
+                  name: { type: "string", example: "KijaniMart Westlands Hub" },
                   city: { type: "string", example: "Nairobi" },
                   area: { type: "string", example: "Westlands" },
                   street: { type: "string", example: "Karuna Road" },

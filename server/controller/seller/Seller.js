@@ -466,7 +466,7 @@ export const registerSeller = async (req, res) => {
         await notifyAllAdmins({
             type: "SELLER_APPLICATION",
             title: `🏪 New Seller Application: ${newSeller.seller_profile.store_name}`,
-            message: `${sellerDisplayName} (${newSeller.email}) applied to sell on FreshMart. Review & approve in Admin → Sellers.`,
+            message: `${sellerDisplayName} (${newSeller.email}) applied to sell on KijaniMart. Review & approve in Admin → Sellers.`,
             link: "/admin?tab=sellers",
         });
 

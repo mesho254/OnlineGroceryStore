@@ -29,7 +29,7 @@ export const formatCleanEmailAddress = (address = {}) => {
     ].filter((v) => v && String(v).trim().toUpperCase() !== "N/A");
     return {
       label: "Pickup Station",
-      value: parts.join(", ") || "FreshMart Pickup Hub, Nairobi",
+      value: parts.join(", ") || "KijaniMart Pickup Hub, Nairobi",
       hours: address.pickup_station.opening_hours || "",
     };
   }
@@ -151,7 +151,7 @@ export const STATUS_EMAIL_META = {
     badge: "AVAILABLE FOR PICKUP",
     emoji: "🏪",
     headline: "Your Order Is Ready for Pickup!",
-    summary: "Your order has arrived at your selected FreshMart Pickup Station and is ready for collection.",
+    summary: "Your order has arrived at your selected KijaniMart Pickup Station and is ready for collection.",
     pillBg: "#ecfdf5",
     pillColor: "#047857",
     accent: "#059669",

@@ -246,7 +246,7 @@ const ProductDetails = ({addProductToCart}) => {
     };
 
     const seller = product.seller || {
-        name: "FreshMart Farm Partner",
+        name: "KijaniMart Farm Partner",
         verified: true,
         rating: 4.9,
         location: "Nairobi, Kenya",

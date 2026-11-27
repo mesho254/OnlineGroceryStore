@@ -510,7 +510,7 @@ const Checkout = () => {
                                 <span className="material-symbols-outlined">storefront</span>
                                 <div>
                                     <strong>Pickup Station ({pickupStations.length})</strong>
-                                    <small>Collect from a FreshMart Hub</small>
+                                    <small>Collect from a KijaniMart Hub</small>
                                 </div>
                             </button>
                         </div>

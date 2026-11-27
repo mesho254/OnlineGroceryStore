@@ -158,7 +158,7 @@ const DeliveryReviewModal = ({notification, onClose}) => {
                                     />
                                     <div className={styles['item-meta']}>
                                         <strong>{item.name}</strong>
-                                        <small>Seller: {item.seller_name || "FreshMart Farm Partner"}</small>
+                                        <small>Seller: {item.seller_name || "KijaniMart Farm Partner"}</small>
                                     </div>
                                     {entry.submitted && (
                                         <span className={styles['reviewed-pill']}>✓ Reviewed</span>

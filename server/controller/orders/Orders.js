@@ -434,7 +434,7 @@ export const triggerOrderConfirmationSideEffects = async (order) => {
 
             await sendEmail({
                 to: persistedOrder.email,
-                subject: `FreshMart Order Confirmation #${persistedOrder.order_id}`,
+                subject: `KijaniMart Order Confirmation #${persistedOrder.order_id}`,
                 text: `Your order #${persistedOrder.order_id} has been placed successfully. Your grand total is ${persistedOrder.total} KES.`,
                 html: orderConfirmationTemplate({
                     ...(persistedOrder._doc || persistedOrder),
@@ -833,7 +833,7 @@ export const downloadOrderReceiptPdf = async (req, res) => {
         res.setHeader("Content-Type", "application/pdf");
         res.setHeader(
             "Content-Disposition",
-            `${disposition}; filename="FreshMart-Receipt-${safeOrderId}.pdf"`
+            `${disposition}; filename="KijaniMart-Receipt-${safeOrderId}.pdf"`
         );
         res.setHeader("Content-Length", pdfBuffer.length);
         res.setHeader("Cache-Control", "no-store");

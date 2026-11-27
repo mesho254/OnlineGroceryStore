@@ -11,7 +11,7 @@ import {
 
 const defaultPickupStations = [
     {
-        name: "FreshMart Westlands Hub (Sarit Centre)",
+        name: "KijaniMart Westlands Hub (Sarit Centre)",
         city: "Nairobi",
         area: "Westlands",
         street: "Karuna Road, Ground Floor Locker Bay",
@@ -23,7 +23,7 @@ const defaultPickupStations = [
         active: true,
     },
     {
-        name: "FreshMart CBD Express Pickup (Kenyatta Ave)",
+        name: "KijaniMart CBD Express Pickup (Kenyatta Ave)",
         city: "Nairobi",
         area: "CBD",
         street: "Kenyatta Avenue, I&M Tower Arcade",
@@ -35,7 +35,7 @@ const defaultPickupStations = [
         active: true,
     },
     {
-        name: "FreshMart Kilimani & Yaya Station",
+        name: "KijaniMart Kilimani & Yaya Station",
         city: "Nairobi",
         area: "Kilimani",
         street: "Argwings Kodhek Road",
@@ -47,7 +47,7 @@ const defaultPickupStations = [
         active: true,
     },
     {
-        name: "FreshMart Thika Road Mall (TRM) Hub",
+        name: "KijaniMart Thika Road Mall (TRM) Hub",
         city: "Nairobi",
         area: "Roysambu",
         street: "Thika Superhighway, Exit 8",
@@ -59,7 +59,7 @@ const defaultPickupStations = [
         active: true,
     },
     {
-        name: "FreshMart Karen Hub (Waterfront Mall)",
+        name: "KijaniMart Karen Hub (Waterfront Mall)",
         city: "Nairobi",
         area: "Karen",
         street: "Karen Road",
@@ -71,7 +71,7 @@ const defaultPickupStations = [
         active: true,
     },
     {
-        name: "FreshMart Mombasa Nyali City Mall Station",
+        name: "KijaniMart Mombasa Nyali City Mall Station",
         city: "Mombasa",
         area: "Nyali",
         street: "Links Road, Nyali",

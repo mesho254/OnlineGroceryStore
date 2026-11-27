@@ -146,8 +146,8 @@ export const runLowStockMonitorSweep = async ({
                     to: admin.email,
                     subject:
                         outOfStockProducts.length > 0
-                            ? `🚨 FreshMart Stock Alert: ${outOfStockProducts.length} Sold Out, ${lowStockProducts.length} Low Stock`
-                            : `⚠️ FreshMart Low Stock Alert: ${lowStockProducts.length} Product${
+                            ? `🚨 KijaniMart Stock Alert: ${outOfStockProducts.length} Sold Out, ${lowStockProducts.length} Low Stock`
+                            : `⚠️ KijaniMart Low Stock Alert: ${lowStockProducts.length} Product${
                                   lowStockProducts.length === 1 ? "" : "s"
                               } Need${lowStockProducts.length === 1 ? "s" : ""} Restocking`,
                     html: lowStockAlertEmailTemplate({

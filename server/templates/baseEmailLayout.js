@@ -17,7 +17,7 @@ export const baseEmailLayout = ({ title, preheader = "", contentHtml }) => `
               <div style="display:inline-block;background:rgba(255,255,255,0.16);color:#ecfdf5;font-size:11px;font-weight:700;letter-spacing:1.2px;padding:4px 12px;border-radius:999px;text-transform:uppercase;margin-bottom:8px;">
                 ⚡ 20-Min Express Grocery
               </div>
-              <h1 style="margin:0;color:#ffffff;font-size:24px;font-weight:800;letter-spacing:-0.5px;">FreshMart</h1>
+              <h1 style="margin:0;color:#ffffff;font-size:24px;font-weight:800;letter-spacing:-0.5px;">KijaniMart</h1>
             </td>
           </tr>
           <tr>
@@ -27,7 +27,7 @@ export const baseEmailLayout = ({ title, preheader = "", contentHtml }) => `
           </tr>
           <tr>
             <td style="background-color:#f8fafc;border-top:1px solid #e2e8f0;padding:20px 32px;text-align:center;font-size:12px;color:#64748b;line-height:18px;">
-              <strong>FreshMart Online Grocery Store</strong> • Nairobi, Kenya<br/>
+              <strong>KijaniMart Online Grocery Store</strong> • Nairobi, Kenya<br/>
               100% Farm-Fresh Groceries Delivered in 20 Minutes.
             </td>
           </tr>

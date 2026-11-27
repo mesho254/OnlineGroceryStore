@@ -127,7 +127,7 @@ const PrivacyNotice = () => {
                     </span>
                     <h1>Privacy and Cookie Notice</h1>
                     <p>
-                        Learn how FreshMart Online Grocery Store collects, protects, and uses
+                        Learn how KijaniMart Online Grocery Store collects, protects, and uses
                         cookies and personal data to deliver farm-fresh groceries across Nairobi in
                         20 minutes—in compliance with the Kenya Data Protection Act (2019) and
                         GDPR standards.
@@ -135,7 +135,7 @@ const PrivacyNotice = () => {
                     <div className={styles["hero-meta"]}>
                         <span>Effective Date: November 2026</span>
                         <span>•</span>
-                        <span>Controller: FreshMart Online Grocery Store (Nairobi, Kenya)</span>
+                        <span>Controller: KijaniMart Online Grocery Store (Nairobi, Kenya)</span>
                         <span>•</span>
                         <Link to="/products">Return to Shopping →</Link>
                     </div>
@@ -150,7 +150,7 @@ const PrivacyNotice = () => {
                             <span className={styles["section-tag"]}>LIVE PREFERENCE CENTER</span>
                             <h2>Manage Your Cookie &amp; Storage Preferences</h2>
                             <p className={styles["section-sub"]}>
-                                Control how FreshMart uses browser cookies and local storage on
+                                Control how KijaniMart uses browser cookies and local storage on
                                 your device. Essential cookies are always active to keep your sign-in
                                 session and shopping cart working.
                             </p>
@@ -205,7 +205,7 @@ const PrivacyNotice = () => {
                                     </label>
                                 </div>
                                 <p>
-                                    Allows FreshMart to remember products you view, search, and
+                                    Allows KijaniMart to remember products you view, search, and
                                     wishlist so we can curate relevant shelves (&ldquo;Picked Just
                                     For You&rdquo;) and related grocery suggestions.
                                 </p>
@@ -272,7 +272,7 @@ const PrivacyNotice = () => {
                     <h2>What Cookies and Local Storage Technologies We Use</h2>
                     <p className={styles["section-sub"]}>
                         Below is a transparent list of the cookies and browser storage keys used by
-                        FreshMart Online Grocery Store:
+                        KijaniMart Online Grocery Store:
                     </p>
 
                     <div className={styles["table-wrap"]}>
@@ -329,7 +329,7 @@ const PrivacyNotice = () => {
                             </li>
                             <li>
                                 <strong>Seller Partner Credentials:</strong> Store name, business
-                                phone, and location for approved vendors on the FreshMart Seller
+                                phone, and location for approved vendors on the KijaniMart Seller
                                 Portal.
                             </li>
                         </ul>

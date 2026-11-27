@@ -1,5 +1,5 @@
 import styles from './footer.module.css';
-import Logo from '../../shared/assets/logos.jpg';
+import Logo from '../../shared/assets/kijanimart-logo.svg';
 import {Link} from "react-router-dom";
 
 const Footer = () => {
@@ -9,10 +9,10 @@ const Footer = () => {
                 <div className={styles['brand-col']}>
                     <Link to={'/'} className={styles['brand-lockup']}>
                         <div className={styles['logo-badge']}>
-                            <img src={Logo} alt={'FreshMart Grocery'}/>
+                            <img src={Logo} alt={'KijaniMart Grocery'}/>
                         </div>
                         <div>
-                            <span className={styles['brand-name']}>FreshMart</span>
+                            <span className={styles['brand-name']}>KijaniMart</span>
                             <span className={styles['brand-tag']}>20-Min Express Grocery</span>
                         </div>
                     </Link>
@@ -67,7 +67,7 @@ const Footer = () => {
             </div>
 
             <div className={styles['credits']}>
-                <span>© {new Date().getFullYear()} FreshMart Online Grocery Store • Built by Mesho-254</span>
+                <span>© {new Date().getFullYear()} KijaniMart Online Grocery Store • Built by Mesho-254</span>
                 <span>Nairobi, Kenya • KES</span>
             </div>
         </footer>

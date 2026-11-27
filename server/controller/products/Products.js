@@ -255,7 +255,7 @@ export const addProductReview = async (req, res) => {
             product.seller.rating = avgSellerRating;
         } else {
             product.seller = {
-                name: "FreshMart Verified Farm Partner",
+                name: "KijaniMart Verified Farm Partner",
                 verified: true,
                 rating: avgSellerRating,
                 location: "Nairobi, Kenya",
@@ -396,7 +396,7 @@ export const getPendingReviews = async (req, res) => {
                     weight: dbProd?.weight || "",
                     measurement: dbProd?.measurement || "",
                     quantity: Number(item.quantity) || 1,
-                    seller_name: dbProd?.seller?.name || "FreshMart Verified Farm Partner",
+                    seller_name: dbProd?.seller?.name || "KijaniMart Verified Farm Partner",
                     product_rating: Number(dbProd?.rating || 0),
                     reviews_count: Number(dbProd?.reviews_count || 0),
                 };
@@ -633,7 +633,7 @@ export const PostProducts = async (req, res) => {
             measurement,
             category,
             stock: Number(stock || 0),
-            brand: brand || "FreshMart Organics",
+            brand: brand || "KijaniMart Organics",
             sku: sku || undefined,
             origin: origin || "Kenyan Highlands",
             is_organic: is_organic === undefined ? true : is_organic === true || is_organic === "true",

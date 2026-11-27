@@ -43,7 +43,7 @@ export const triggerDeliveryReviewNotification = async (order_id, originUrl) => 
             image:
                 dbItem?.image ||
                 "https://www.themealdb.com/images/ingredients/Kale.png",
-            seller_name: dbItem?.seller?.name || "FreshMart Verified Farm",
+            seller_name: dbItem?.seller?.name || "KijaniMart Verified Farm",
             reviewed: false,
         };
     });
@@ -89,7 +89,7 @@ export const triggerDeliveryReviewNotification = async (order_id, originUrl) => 
             const safeOrderId = String(order.order_id || "order").replace(/[^a-zA-Z0-9_-]/g, "");
             attachments = [
                 {
-                    filename: `FreshMart-Receipt-${safeOrderId}.pdf`,
+                    filename: `KijaniMart-Receipt-${safeOrderId}.pdf`,
                     content: pdfBuffer,
                     contentType: "application/pdf",
                 },
@@ -596,7 +596,7 @@ export const orderConfirmation = async (req, res) => {
 
         await sendEmail({
             to,
-            subject: `FreshMart Order Confirmation #${order?.order_id || ""}`,
+            subject: `KijaniMart Order Confirmation #${order?.order_id || ""}`,
             text: `Your order #${order?.order_id} has been placed successfully. Your grand total is ${order?.total} KES.`,
             html: orderConfirmationTemplate(enrichedOrder, req.headers.origin),
         });

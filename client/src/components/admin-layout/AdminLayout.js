@@ -114,7 +114,7 @@ const NAV_SECTIONS = [
 
 const AdminLayout = ({
     title,
-    eyebrow = 'FRESHMART ADMIN OPERATIONS',
+    eyebrow = 'KIJANIMART ADMIN OPERATIONS',
     subtitle,
     activeTab,
     actions,

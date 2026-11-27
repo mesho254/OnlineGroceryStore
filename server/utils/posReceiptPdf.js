@@ -1,7 +1,7 @@
 /**
  * Zero-dependency 80mm Thermal POS-Style PDF 1.4 Receipt Generator.
  * Produces crisp, vector-rendered supermarket POS receipts (monospaced aligned columns,
- * FreshMart brand header, VAT breakdown, PAID stamp, and real Code-39 vector barcode).
+ * KijaniMart brand header, VAT breakdown, PAID stamp, and real Code-39 vector barcode).
  */
 
 const PAGE_WIDTH = 246; // ~86.8mm thermal POS paper width
@@ -116,7 +116,7 @@ const formatCleanAddress = (address = {}) => {
         ].filter((v) => v && String(v).trim().toUpperCase() !== "N/A");
         return {
             mode: "PICKUP STATION",
-            line: parts.join(", ") || "FreshMart Pickup Hub, Nairobi",
+            line: parts.join(", ") || "KijaniMart Pickup Hub, Nairobi",
         };
     }
 
@@ -221,7 +221,7 @@ export const generatePosReceiptPdfBuffer = (order = {}, enrichedProducts = null)
         font: "F4", // Helvetica-Bold
         size: 16,
         color: [1, 1, 1],
-        text: "FRESHMART",
+        text: "KIJANIMART",
     });
     ops.push({
         type: "textCenter",
@@ -485,7 +485,7 @@ export const generatePosReceiptPdfBuffer = (order = {}, enrichedProducts = null)
         font: "F2",
         size: 8.2,
         color: [0.024, 0.373, 0.275],
-        text: "THANK YOU FOR SHOPPING AT FRESHMART!",
+        text: "THANK YOU FOR SHOPPING AT KIJANIMART!",
     });
     y += 11;
     ops.push({

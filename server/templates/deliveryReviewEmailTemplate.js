@@ -31,7 +31,7 @@ export const deliveryReviewEmailTemplate = ({
             ${item.name || "Grocery Item"}
           </div>
           <div style="font-size:12px;color:#64748b;margin-top:3px;">
-            Seller: ${item.seller_name || "FreshMart Farm Partner"} &bull; Qty: ${qty}
+            Seller: ${item.seller_name || "KijaniMart Farm Partner"} &bull; Qty: ${qty}
           </div>
         </td>
         <td align="right" valign="middle" style="padding:12px 0;border-bottom:1px solid #f1f5f9;white-space:nowrap;">
@@ -45,7 +45,7 @@ export const deliveryReviewEmailTemplate = ({
 
   return baseEmailLayout({
     title: `Order #${order_id} Delivered! Rate Your Groceries ⭐`,
-    preheader: `Your FreshMart order #${order_id} has been delivered. Tell us how we did!`,
+    preheader: `Your KijaniMart order #${order_id} has been delivered. Tell us how we did!`,
     contentHtml: `
       <div style="margin-bottom:14px;">
         <span style="display:inline-block;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;font-size:11px;font-weight:800;letter-spacing:0.6px;padding:5px 12px;border-radius:999px;text-transform:uppercase;">
@@ -73,7 +73,7 @@ export const deliveryReviewEmailTemplate = ({
         hasPdfAttachment
           ? `<div style="background:#f8fafc;border:1px dashed #94a3b8;border-radius:14px;padding:13px 16px;margin-bottom:22px;font-size:13px;color:#334155;line-height:20px;">
               <strong style="color:#0f172a;">🧾 Official POS Sales Receipt Attached (PDF)</strong><br/>
-              Your thermal-style POS receipt (<strong>FreshMart-Receipt-${order_id}.pdf</strong>) is attached to this email for your records. You can also download it anytime from your Order Receipt page.
+              Your thermal-style POS receipt (<strong>KijaniMart-Receipt-${order_id}.pdf</strong>) is attached to this email for your records. You can also download it anytime from your Order Receipt page.
             </div>`
           : ""
       }

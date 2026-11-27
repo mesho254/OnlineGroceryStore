@@ -1,5 +1,5 @@
 import styles from './navigation.module.css';
-import Logo from '../../shared/assets/logos.jpg';
+import Logo from '../../shared/assets/kijanimart-logo.svg';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import {SEARCH_HIDDEN, SEARCH_VISIBLE} from "./constants/search";
@@ -248,10 +248,10 @@ const Navigation = ({cartCount}) => {
                     <div className={styles['brand-cluster']}>
                         <Link to={'/'} className={styles['logo']}>
                             <div className={styles['logo-badge']}>
-                                <img src={Logo} alt={'FreshMart Grocery'}/>
+                                <img src={Logo} alt={'KijaniMart Grocery'}/>
                             </div>
                             <div className={styles['brand-text']}>
-                                <span className={styles['brand-name']}>FreshMart</span>
+                                <span className={styles['brand-name']}>KijaniMart</span>
                                 <span className={styles['brand-tag']}>Daily Grocery</span>
                             </div>
                         </Link>
@@ -294,7 +294,7 @@ const Navigation = ({cartCount}) => {
                         className={`${styles['nav-links']} ${menuActive ? styles['show-menu'] : ''}`}
                     >
                         <div className={styles['mobile-drawer-head']}>
-                            <span className={styles['brand-name']}>FreshMart Menu</span>
+                            <span className={styles['brand-name']}>KijaniMart Menu</span>
                             <button type="button" onClick={closeMenu} className={styles['close-menu']}>
                                 <span className="material-symbols-outlined">close</span>
                             </button>

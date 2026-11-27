@@ -75,7 +75,7 @@ const INITIAL_PRODUCT = {
     name: '',
     description: '',
     category: 'Fruits and Vegetables',
-    brand: 'FreshMart Organics',
+    brand: 'KijaniMart Organics',
     sku: '',
     origin: 'Kenyan Highlands',
     is_organic: true,
@@ -146,7 +146,7 @@ const AdminNewProduct = () => {
                     name: p.name || '',
                     description: p.description || '',
                     category: p.category || 'Fruits and Vegetables',
-                    brand: p.brand || 'FreshMart Organics',
+                    brand: p.brand || 'KijaniMart Organics',
                     sku: p.sku || '',
                     origin: p.origin || 'Kenyan Highlands',
                     is_organic: p.is_organic !== false,
@@ -158,7 +158,7 @@ const AdminNewProduct = () => {
                     weight: p.weight !== undefined && p.weight !== null ? String(p.weight) : '1',
                     measurement: p.measurement || 'g',
                     stock: p.stock !== undefined && p.stock !== null ? String(p.stock) : '0',
-                    seller_name: seller.name || 'FreshMart Farm Partner',
+                    seller_name: seller.name || 'KijaniMart Farm Partner',
                     seller_location: seller.location || 'Nairobi, Kenya',
                     seller_verified: seller.verified !== false,
                     shelf_life: p.shelf_life || '5–7 Days',
@@ -368,7 +368,7 @@ const AdminNewProduct = () => {
         formData.append(
             'seller',
             JSON.stringify({
-                name: product.seller_name.trim() || 'FreshMart Farm Partner',
+                name: product.seller_name.trim() || 'KijaniMart Farm Partner',
                 location: product.seller_location.trim() || 'Nairobi, Kenya',
                 verified: Boolean(product.seller_verified),
                 rating: 4.9,
@@ -597,7 +597,7 @@ const AdminNewProduct = () => {
                                     name="brand"
                                     value={product.brand}
                                     onChange={handleChange}
-                                    placeholder="FreshMart Organics"
+                                    placeholder="KijaniMart Organics"
                                 />
                             </div>
                             <div className={styles['field']}>

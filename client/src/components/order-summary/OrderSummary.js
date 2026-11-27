@@ -482,7 +482,7 @@ const OrderSummary = ({order, allowAdminActions = true}) => {
                             <small>Fulfillment Mode</small>
                             <strong>
                                 {isPickup
-                                    ? 'Customer Pickup at FreshMart Hub'
+                                    ? 'Customer Pickup at KijaniMart Hub'
                                     : 'Express Rider Doorstep Delivery'}
                             </strong>
                         </div>

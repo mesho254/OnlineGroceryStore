@@ -634,7 +634,7 @@ const SellerPortal = () => {
                     <span className="material-symbols-outlined">storefront</span>
                 </div>
                 <div>
-                    <strong>FreshMart Seller Center</strong>
+                    <strong>KijaniMart Seller Center</strong>
                     <small>
                         {isApproved
                             ? `${sellerProfile.store_name} • Verified Partner`
@@ -796,7 +796,7 @@ const SellerPortal = () => {
                 <div className={styles['auth-stage']}>
                     <div className={styles['auth-card']}>
                         <div className={styles['auth-intro']}>
-                            <span className={styles['eyebrow']}>SELL ON FRESHMART</span>
+                            <span className={styles['eyebrow']}>SELL ON KIJANIMART</span>
                             <h1>Grow Your Farm or Grocery Business</h1>
                             <p>
                                 List products, track orders & earnings, monitor customer ratings,
@@ -1057,7 +1057,7 @@ const SellerPortal = () => {
                                     Thank you, <strong>{currentUser?.first_name}</strong>! Your
                                     application for{' '}
                                     <strong>{sellerProfile?.store_name || 'your store'}</strong> has
-                                    been sent to the FreshMart Admin team. Once an admin approves
+                                    been sent to the KijaniMart Admin team. Once an admin approves
                                     your request, you can immediately add products, view orders, and
                                     track earnings right here.
                                 </p>
@@ -1105,7 +1105,7 @@ const SellerPortal = () => {
                                     <span className={styles['eyebrow']}>
                                         {sellerStatus === 'REJECTED'
                                             ? 'APPLICATION NOT APPROVED — RE-APPLY'
-                                            : 'APPLY AS A FRESHMART SELLER'}
+                                            : 'APPLY AS A KIJANIMART SELLER'}
                                     </span>
                                     <h1>
                                         {sellerStatus === 'REJECTED'
@@ -1200,7 +1200,7 @@ const SellerPortal = () => {
                                                     business_description: e.target.value,
                                                 })
                                             }
-                                            placeholder="Tell FreshMart admins about the products you plan to sell..."
+                                            placeholder="Tell KijaniMart admins about the products you plan to sell..."
                                         />
                                     </div>
 
@@ -1937,7 +1937,7 @@ const SellerPortal = () => {
                                 <div>
                                     <strong>Admin-Verified Order Status Workflow:</strong> When you
                                     submit a dispatch update below (e.g., <em>Shipped</em> or{' '}
-                                    <em>Waiting to be Shipped</em>), it notifies the FreshMart Admin
+                                    <em>Waiting to be Shipped</em>), it notifies the KijaniMart Admin
                                     team without changing what the customer sees yet. The customer
                                     sees the updated status once Admin confirms and applies it.
                                 </div>

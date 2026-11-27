@@ -74,7 +74,7 @@ const ResetPassword = () => {
             <div className={styles['header']}>
                 <h1 className={styles['title']}>Set a new password</h1>
                 <div className={styles['login']}>
-                    Choose a strong password for your FreshMart account.
+                    Choose a strong password for your KijaniMart account.
                 </div>
             </div>
 

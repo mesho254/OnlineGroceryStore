@@ -493,7 +493,7 @@ export const transitionOrderAndShipmentStatus = async ({
                 // Fire-and-forget so Admin status clicks respond instantly while customer email dispatches
                 sendEmail({
                     to: updatedOrder.email,
-                    subject: `${meta.emoji} FreshMart Order #${updatedOrder.order_id} — ${meta.badge}`,
+                    subject: `${meta.emoji} KijaniMart Order #${updatedOrder.order_id} — ${meta.badge}`,
                     text: `${meta.headline} (Order #${updatedOrder.order_id}). ${meta.summary}`,
                     html,
                 }).catch((eErr) =>

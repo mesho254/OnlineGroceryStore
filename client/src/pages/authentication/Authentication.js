@@ -1,5 +1,5 @@
 import styles from './authentication.module.css';
-import Logo from '../../shared/assets/logos.jpg';
+import Logo from '../../shared/assets/kijanimart-logo.svg';
 import {Link} from "react-router-dom";
 
 const Authentication = ({data}) => {
@@ -9,10 +9,10 @@ const Authentication = ({data}) => {
                 <div className={styles['brand-bar']}>
                     <Link to="/" className={styles['brand-link']}>
                         <div className={styles['logo-box']}>
-                            <img src={Logo} alt="FreshMart"/>
+                            <img src={Logo} alt="KijaniMart"/>
                         </div>
                         <div>
-                            <span className={styles['brand-title']}>FreshMart</span>
+                            <span className={styles['brand-title']}>KijaniMart</span>
                             <span className={styles['brand-sub']}>20-Min Express Grocery</span>
                         </div>
                     </Link>

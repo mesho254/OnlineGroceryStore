@@ -75,7 +75,7 @@ const Login = () => {
             <div className={styles['header']}>
                 <h1 className={styles['title']}>Welcome back</h1>
                 <div className={styles['login']}>
-                    New to FreshMart? <Link to={'/signup'}>Create an account</Link>
+                    New to KijaniMart? <Link to={'/signup'}>Create an account</Link>
                 </div>
             </div>
 

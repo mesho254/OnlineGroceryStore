@@ -18,7 +18,7 @@ export const sendEmail = async ({ to, subject, html, text, attachments = [] }) =
   const fromAddress = process.env.USER || "meshakokelo@gmail.com";
 
   return transporter.sendMail({
-    from: `"FreshMart Grocery Store" <${fromAddress}>`,
+    from: `"KijaniMart Grocery Store" <${fromAddress}>`,
     to,
     subject,
     text: text || subject,

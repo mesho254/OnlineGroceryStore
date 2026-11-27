@@ -22,7 +22,7 @@ const AdminViewOrder = () => {
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `FreshMart-Receipt-${id}.pdf`;
+            link.download = `KijaniMart-Receipt-${id}.pdf`;
             document.body.appendChild(link);
             link.click();
             link.remove();

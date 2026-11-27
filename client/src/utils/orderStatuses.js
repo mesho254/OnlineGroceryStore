@@ -57,7 +57,7 @@ export const ORDER_STATUS_CONFIG = {
         stageIndex: 2,
         desc: 'Arrived at Pickup Station / Ready for customer handover.',
         detailMessage:
-            'Your package has arrived and is available for pickup at your selected FreshMart Pickup Station.',
+            'Your package has arrived and is available for pickup at your selected KijaniMart Pickup Station.',
     },
     DELIVERED: {
         id: 'DELIVERED',

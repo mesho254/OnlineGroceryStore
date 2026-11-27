@@ -43,7 +43,7 @@ const productSchema = new Schema({
     category: String,
     brand: {
         type: String,
-        default: "FreshMart Organics",
+        default: "KijaniMart Organics",
     },
     sku: {
         type: String,
@@ -70,7 +70,7 @@ const productSchema = new Schema({
     },
     seller: {
         seller_id: { type: String, index: true, default: "" },
-        name: { type: String, default: "FreshMart Verified Farm Partner" },
+        name: { type: String, default: "KijaniMart Verified Farm Partner" },
         email: { type: String, default: "" },
         verified: { type: Boolean, default: true },
         rating: { type: Number, default: 4.9 },

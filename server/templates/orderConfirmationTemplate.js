@@ -17,7 +17,7 @@ export const orderConfirmationTemplate = (order, baseUrl = WEBSITE_BASE_URL) => 
 
   return baseEmailLayout({
     title: `Order Confirmation #${order?.order_id}`,
-    preheader: `Your FreshMart order #${order?.order_id} (${Number(order?.total || 0).toFixed(2)} KES) is confirmed!`,
+    preheader: `Your KijaniMart order #${order?.order_id} (${Number(order?.total || 0).toFixed(2)} KES) is confirmed!`,
     contentHtml: `
       <div style="margin-bottom:14px;">
         <span style="display:inline-block;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;font-size:11px;font-weight:800;letter-spacing:0.6px;padding:5px 12px;border-radius:999px;text-transform:uppercase;">

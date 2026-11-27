@@ -321,7 +321,7 @@ const Profile = () => {
 
     const fullName =
         [currentUser.first_name, currentUser.last_name].filter(Boolean).join(' ') ||
-        'FreshMart Customer';
+        'KijaniMart Customer';
     const initials = (currentUser.first_name || currentUser.email || 'U')
         .charAt(0)
         .toUpperCase();
@@ -795,7 +795,7 @@ const Profile = () => {
                                     <div>
                                         <h4>Suspend Account &amp; GDPR Data Privacy</h4>
                                         <p>
-                                            Need to deactivate your FreshMart account? Suspending
+                                            Need to deactivate your KijaniMart account? Suspending
                                             immediately signs you out and moves your profile to
                                             GDPR-compliant archival Trash for{' '}
                                             <strong>365 days</strong> (statutory order &amp; tax
