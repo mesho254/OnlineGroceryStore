@@ -8,6 +8,7 @@ import {useContext, useEffect, useRef, useState} from "react";
 import Error from "../../components/feedback/error/Error";
 import * as api from "../../api";
 import {CartContext} from "../../App";
+import {queryClient} from "../../index";
 import {formatKES, getEffectivePrice, getOriginalPrice} from "../../utils/pricing";
 
 const Cart = ({cart, cartCount, updateQuantity}) => {
@@ -18,6 +19,11 @@ const Cart = ({cart, cartCount, updateQuantity}) => {
     const [error, setError] = useState('');
     const [validating, setValidating] = useState(false);
     const isValidatingRef = useRef(false);
+
+    // Sync latest cross-device cart state from backend when opening the Cart page
+    useEffect(() => {
+        queryClient.invalidateQueries({queryKey: ['userCartHydrate']});
+    }, []);
 
     // If user clicked Back/Cancel on Stripe Checkout, release their temporary stock hold immediately
     useEffect(() => {

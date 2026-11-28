@@ -377,6 +377,12 @@ export const triggerOrderConfirmationSideEffects = async (order) => {
             const matchedUser = await Users.findOne({
                 email: { $regex: `^${persistedOrder.email}$`, $options: "i" },
             });
+            if (matchedUser?._id) {
+                await Users.updateOne(
+                    { _id: matchedUser._id },
+                    { $set: { cart: [] } }
+                ).catch(() => {});
+            }
             await Notifications.create({
                 user_id: matchedUser?._id ? String(matchedUser._id) : undefined,
                 user_email: persistedOrder.email,

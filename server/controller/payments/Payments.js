@@ -185,6 +185,27 @@ export const createCheckoutSession = async (req, res) => {
 
             const baseUrl =
                 req.headers.origin || process.env.WEBSITE_BASE_URL || WEBSITE_BASE_URL;
+            const hasLocalLoopbackOrigin =
+                typeof req.headers.origin === "string" &&
+                /^http:\/\/(127\.0\.0\.1|localhost):\d+$/i.test(req.headers.origin.trim());
+            const isMobileApp =
+                !hasLocalLoopbackOrigin &&
+                (req.body?.platform === "mobile" ||
+                    req.headers["x-client-platform"] === "mobile");
+            const forwardedProto = (req.headers["x-forwarded-proto"] || "")
+                .toString()
+                .split(",")[0]
+                .trim();
+            const proto = forwardedProto || req.protocol || "https";
+            const host = req.get("host");
+            const apiOrigin = host ? `${proto}://${host}` : baseUrl;
+
+            const successUrl = isMobileApp
+                ? `${apiOrigin}/payments/mobile-return?status=success&order=${encodeURIComponent(order_id)}&session_id={CHECKOUT_SESSION_ID}`
+                : `${baseUrl}/checkout/success?order=${order_id}&session_id={CHECKOUT_SESSION_ID}`;
+            const cancelUrl = isMobileApp
+                ? `${apiOrigin}/payments/mobile-return?status=cancel&order=${encodeURIComponent(order_id)}`
+                : `${baseUrl}/cart?canceled_order=${order_id}`;
 
             const session = await stripe.checkout.sessions.create({
                 mode: "payment",
@@ -204,8 +225,8 @@ export const createCheckoutSession = async (req, res) => {
                 payment_intent_data: {
                     metadata: stripeMetadata,
                 },
-                success_url: `${baseUrl}/checkout/success?order=${order_id}&session_id={CHECKOUT_SESSION_ID}`,
-                cancel_url: `${baseUrl}/cart?canceled_order=${order_id}`,
+                success_url: successUrl,
+                cancel_url: cancelUrl,
             });
 
             // 4. Stage as a PendingCheckout ONLY — DO NOT create the Order, deduct stock,
@@ -425,4 +446,106 @@ export const webhook = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
+};
+
+/**
+ * Mobile In-App Browser return bridge (`GET /payments/mobile-return`).
+ * Verifies the Stripe session on the server, fulfills the order in MongoDB immediately,
+ * and deep-links back into the KijaniMart Flutter app (`kijanimart://checkout`),
+ * automatically closing the Android Custom Tab / In-App Browser.
+ */
+export const handleMobileCheckoutReturn = async (req, res) => {
+    const status = (req.query.status || "success").toString();
+    const orderId = (req.query.order || "").toString();
+    const sessionId = (req.query.session_id || "").toString();
+
+    let verifiedPaid = false;
+    let resolvedOrderId = orderId;
+
+    if (status === "success" && sessionId) {
+        try {
+            const session = await stripe.checkout.sessions.retrieve(sessionId);
+            if (session && session.payment_status === "paid") {
+                verifiedPaid = true;
+                resolvedOrderId =
+                    session.metadata?.order_id || session.client_reference_id || orderId;
+                let existing = await Order.findOne({ order_id: resolvedOrderId });
+                if (!existing) {
+                    const pending = await PendingCheckout.findOne({
+                        $or: [{ stripe_session_id: session.id }, { order_id: resolvedOrderId }],
+                    });
+                    if (pending?.payload) {
+                        await fulfillOrderData({
+                            ...pending.payload,
+                            stripe_session_id: session.id,
+                            stripe_session_url: pending.stripe_session_url,
+                        });
+                        await PendingCheckout.deleteOne({ _id: pending._id }).catch(() => {});
+                    } else if (session.metadata?.order_id) {
+                        await fulfillOrderData(session.metadata);
+                    }
+                }
+            }
+        } catch (err) {
+            console.error("Mobile return session verification error:", err.message);
+        }
+    } else if (status === "cancel" && orderId) {
+        try {
+            const existing = await Order.findOne({ order_id: orderId });
+            if (!existing) {
+                await PendingCheckout.findOneAndDelete({ order_id: orderId });
+            }
+        } catch {}
+    }
+
+    const deepLinkUrl = `kijanimart://checkout?status=${encodeURIComponent(
+        verifiedPaid ? "success" : status
+    )}&order=${encodeURIComponent(resolvedOrderId)}&session_id=${encodeURIComponent(sessionId)}`;
+    const androidIntentUrl = `intent://checkout?status=${encodeURIComponent(
+        verifiedPaid ? "success" : status
+    )}&order=${encodeURIComponent(resolvedOrderId)}&session_id=${encodeURIComponent(
+        sessionId
+    )}#Intent;scheme=kijanimart;package=com.example.kijanimart_mobile;end`;
+
+    const isSuccess = status === "success";
+    const title = isSuccess
+        ? "Payment Confirmed! Returning to KijaniMart..."
+        : "Checkout Canceled — Returning to KijaniMart...";
+    const subtitle = isSuccess
+        ? `Order #${resolvedOrderId} has been confirmed. Redirecting back to the KijaniMart mobile app...`
+        : "Your cart items are still saved. Tap below to return to the KijaniMart app.";
+
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    return res.status(200).send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${title}</title>
+  <style>
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:#064E3B; color:#fff; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; box-sizing:border-box; }
+    .card { background:#fff; color:#0F172A; max-width:380px; width:100%; border-radius:24px; padding:28px 22px; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.28); }
+    .badge { width:64px; height:64px; border-radius:50%; margin:0 auto 16px; display:flex; align-items:center; justify-content:center; font-size:30px; background:${isSuccess ? "#ECFDF5" : "#FEF3C7"}; color:${isSuccess ? "#059669" : "#D97706"}; }
+    h1 { font-size:20px; font-weight:900; margin:0 0 8px; }
+    p { font-size:13.5px; color:#475569; line-height:1.5; margin:0 0 20px; }
+    .btn { display:block; width:100%; box-sizing:border-box; padding:14px 18px; border-radius:999px; background:#059669; color:#fff; font-weight:800; font-size:14px; text-decoration:none; }
+  </style>
+  <script>
+    window.onload = function() {
+      window.location.replace(${JSON.stringify(deepLinkUrl)});
+      setTimeout(function() {
+        window.location.replace(${JSON.stringify(androidIntentUrl)});
+      }, 350);
+    };
+  </script>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">${isSuccess ? "✓" : "↩"}</div>
+    <h1>${title}</h1>
+    <p>${subtitle}</p>
+    <a class="btn" href="${deepLinkUrl}">Return to KijaniMart App</a>
+  </div>
+</body>
+</html>`);
 };

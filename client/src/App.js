@@ -176,16 +176,17 @@ const App = () => {
     const [cart, setCart] = useState(() => readUserCartFromStorage(user));
     const [cartCount, setCartCount] = useState(0);
 
-    // Deduplicated cart hydration via React Query (prevents duplicate /cart XHR calls under StrictMode)
-    const {data: serverCartData} = useQuery({
+    // Live cross-device cart synchronization with backend (keeps Website & Mobile App carts in sync)
+    const {data: serverCartData, dataUpdatedAt: serverCartUpdatedAt} = useQuery({
         queryKey: ['userCartHydrate', userKey],
         queryFn: async () => {
             const res = await api.getUserCart();
             return Array.isArray(res.data?.cart) ? res.data.cart : [];
         },
         enabled: Boolean(userKey),
-        staleTime: 5 * 60 * 1000,
-        refetchOnWindowFocus: false,
+        staleTime: 0,
+        refetchOnMount: 'always',
+        refetchOnWindowFocus: true,
     });
 
     // When the logged-in user changes (login, signup, switch user, or logout), load their specific cart
@@ -201,14 +202,12 @@ const App = () => {
         hydratedKeyRef.current = userKey;
     }, [userKey]);
 
+    // Always apply authoritative server cart snapshot (including empty [] after checkout on Mobile App)
     useEffect(() => {
-        if (!userKey || !Array.isArray(serverCartData) || serverCartData.length === 0) return;
-        const storedRaw = localStorage.getItem(userKey);
-        if (storedRaw === null) {
-            setCart(serverCartData);
-            localStorage.setItem(userKey, JSON.stringify(serverCartData));
-        }
-    }, [userKey, serverCartData]);
+        if (!userKey || !Array.isArray(serverCartData) || !serverCartUpdatedAt) return;
+        setCart(serverCartData);
+        localStorage.setItem(userKey, JSON.stringify(serverCartData));
+    }, [userKey, serverCartData, serverCartUpdatedAt]);
 
     const persistUserCart = (nextCart) => {
         setCart(nextCart);
